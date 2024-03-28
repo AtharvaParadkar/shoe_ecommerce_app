@@ -1,13 +1,16 @@
+// ignore_for_file: camel_case_types, avoid_print
+
 import 'dart:io';
 
 import 'package:checkout_screen_ui/checkout_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/model/productcart.dart';
-import 'package:ecommerce/views/paid.dart';
+import 'package:shoe_ecommerce_app/model/productcart.dart';
+import 'package:shoe_ecommerce_app/views/paid.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// ignore: must_be_immutable
 class paymenTpage extends StatefulWidget {
   paymenTpage({super.key, required this.orderedShoes, required this.quant});
 
@@ -23,7 +26,7 @@ class _paymenTpageState extends State<paymenTpage> {
 
   void setData() {
     int index = 0;
-    widget.orderedShoes.forEach((element) {
+    for (var element in widget.orderedShoes) {
       _priceItems.add(PriceItem(
           name: element.name,
           quantity: int.parse(widget.quant[index]),
@@ -31,14 +34,14 @@ class _paymenTpageState extends State<paymenTpage> {
               100 *
               int.parse(widget.quant[index])));
       index++;
-    });
+    }
 
     setState(() {});
   }
 
   @override
   void initState() {
-    // TODO: implement initState
+    // implement initState
     super.initState();
     setData();
   }
@@ -60,20 +63,20 @@ class _paymenTpageState extends State<paymenTpage> {
           displayNativePay: true,
           onNativePay: () {
             int index = 0;
+            // ignore: avoid_function_literals_in_foreach_calls
             widget.orderedShoes.forEach((element) async {
               await FirebaseFirestore.instance
                   .collection("users")
                   .doc(FirebaseAuth.instance.currentUser!.email)
                   .collection("ordered")
                   .add({
-                "id": "${element.id}",
-                "gend": "${element.category}",
+                "id": element.id,
+                "gend": element.category,
                 "paid": "true",
                 "delivered": "pending",
                 "amount":
                     "${int.parse(element.price.split(".")[0]) * int.parse(widget.quant[index])}"
               });
-
               await FirebaseFirestore.instance
                   .collection("users")
                   .doc(FirebaseAuth.instance.currentUser!.email)
@@ -82,7 +85,7 @@ class _paymenTpageState extends State<paymenTpage> {
                   .update({"cart": "false", "quantity": "1"});
             });
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => successfull()));
+                MaterialPageRoute(builder: (context) =>const successfull()));
           },
           isApple: Platform.isIOS,
           onCardPay: (results) =>

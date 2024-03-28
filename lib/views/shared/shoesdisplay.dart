@@ -1,15 +1,18 @@
+// ignore_for_file: camel_case_types
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/controllers/product_providers.dart';
-import 'package:ecommerce/model/productcart.dart';
-import 'package:ecommerce/productBYcat.dart';
-import 'package:ecommerce/views/productpage.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
-import 'package:ecommerce/views/shared/productcart.dart';
+import 'package:shoe_ecommerce_app/controllers/product_providers.dart';
+import 'package:shoe_ecommerce_app/model/productcart.dart';
+import 'package:shoe_ecommerce_app/productBYcat.dart';
+import 'package:shoe_ecommerce_app/views/productpage.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
+import 'package:shoe_ecommerce_app/views/shared/productcart.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class homeShoe extends StatefulWidget {
   homeShoe({super.key, required this.userShoe, required this.tabindex});
 
@@ -33,12 +36,12 @@ class _homeShoeState extends State<homeShoe> {
         .collection("shoes")
         .get()
         .then((value) {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         Map test = element.data();
         if (test["fav"] == "true") {
           fav.add(test["id"]);
         }
-      });
+      }
       isLoading = false;
       setState(() {});
     });
@@ -57,6 +60,7 @@ class _homeShoeState extends State<homeShoe> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: unused_local_variable
     var productNotifiers = Provider.of<ProductNotifiers>(
         context); // this Notifier scope change to productpage.notifer
     return Padding(
@@ -66,58 +70,62 @@ class _homeShoeState extends State<homeShoe> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-                height: MediaQuery.of(context).size.height * 0.405,
-                child: isLoading
-                    ? SizedBox(
-                        height: MediaQuery.of(context).size.height,
-                        child: const Center(
-                            child: CircularProgressIndicator(
+              height: MediaQuery.of(context).size.height * 0.405,
+              child: isLoading
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: const Center(
+                        child: CircularProgressIndicator(
                           color: Colors.black,
-                        )))
-                    : FutureBuilder<List<Sneakers>>(
-                        future: widget.userShoe,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return const CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text(" Error ${snapshot.error}");
-                          } else {
-                            final userShoe = snapshot.data;
-                            return ListView.builder(
-                              itemCount: userShoe!.length,
-                              scrollDirection: Axis.horizontal,
-                              itemBuilder: (context, index) {
-                                final shoe = snapshot.data![index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      getDetails();
-                                    });
-
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => productPage(
-                                                  shoesize: shoe.sizes,
-                                                  id: shoe.id,
-                                                  category: shoe.category,
-                                                )));
-                                  },
-                                  child: productCard(
-                                    categogry: shoe.category,
-                                    price: "\$${shoe.price}",
-                                    id: shoe.id,
-                                    name: shoe.name,
-                                    image: shoe.imageUrl[0],
-                                    isfav: fav.contains(shoe.id),
-                                  ),
-                                );
-                              },
-                            );
-                          }
-                        },
-                      )),
+                        ),
+                      ),
+                    )
+                  : FutureBuilder<List<Sneakers>>(
+                      future: widget.userShoe,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text(" Error ${snapshot.error}");
+                        } else {
+                          final userShoe = snapshot.data;
+                          return ListView.builder(
+                            itemCount: userShoe!.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              final shoe = snapshot.data![index];
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    getDetails();
+                                  });
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => productPage(
+                                        shoesize: shoe.sizes,
+                                        id: shoe.id,
+                                        category: shoe.category,
+                                      ),
+                                    ),
+                                  );
+                                },
+                                child: productCard(
+                                  categogry: shoe.category,
+                                  price: "\u{20B9}${shoe.price}",
+                                  id: shoe.id,
+                                  name: shoe.name,
+                                  image: shoe.imageUrl[0],
+                                  isfav: fav.contains(shoe.id),
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      },
+                    ),
+            ),
             Column(
               children: [
                 Padding(
@@ -160,10 +168,10 @@ class _homeShoeState extends State<homeShoe> {
                   future: widget.userShoe,
                   builder: (context, snapshot) {
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return CircularProgressIndicator();
+                      return const CircularProgressIndicator();
                     } else if (snapshot.hasError) {
+                      // ignore: avoid_print
                       print(" Error ${snapshot.error}");
-
                       return Text(" Error ${snapshot.error}");
                     } else {
                       final user = snapshot.data;

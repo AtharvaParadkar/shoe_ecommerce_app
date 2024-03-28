@@ -1,8 +1,10 @@
-import 'package:ecommerce/controllers/password_notify.dart';
-import 'package:ecommerce/home.dart';
-import 'package:ecommerce/register.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
-import 'package:ecommerce/views/shared/customfield.dart';
+// ignore_for_file: camel_case_types, body_might_complete_normally_nullable, use_build_context_synchronously
+
+import 'package:shoe_ecommerce_app/controllers/password_notify.dart';
+import 'package:shoe_ecommerce_app/home.dart';
+import 'package:shoe_ecommerce_app/register.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
+import 'package:shoe_ecommerce_app/views/shared/customfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -45,7 +47,6 @@ class _loginPageState extends State<loginPage> {
         child: ListView(
           // conventional method to display children in column or row
           padding: EdgeInsets.zero,
-
           children: [
             Text(
               "Welcome!",
@@ -109,7 +110,7 @@ class _loginPageState extends State<loginPage> {
               child: GestureDetector(
                 onTap: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => resgisterUser()));
+                      MaterialPageRoute(builder: (context) =>const resgisterUser()));
                 },
                 child: Text(
                   "Register",
@@ -124,9 +125,8 @@ class _loginPageState extends State<loginPage> {
                 onTap: () async {
                   await FirebaseAuth.instance.signInWithEmailAndPassword(
                       email: email.text, password: pass.text);
-
                   Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (context) => home()));
+                      context, MaterialPageRoute(builder: (context) => const home()));
                 },
                 child: Container(
                   height: 55.h,

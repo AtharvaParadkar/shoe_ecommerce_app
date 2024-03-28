@@ -1,12 +1,13 @@
+// ignore_for_file: use_build_context_synchronously, camel_case_types
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/cartpage.dart';
-import 'package:ecommerce/favouratepage.dart';
-import 'package:ecommerce/loginpage.dart';
-import 'package:ecommerce/orders.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
-import 'package:ecommerce/views/shared/tiles.dart';
+import 'package:shoe_ecommerce_app/cartpage.dart';
+import 'package:shoe_ecommerce_app/favouratepage.dart';
+import 'package:shoe_ecommerce_app/loginpage.dart';
+import 'package:shoe_ecommerce_app/orders.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
+import 'package:shoe_ecommerce_app/views/shared/tiles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -28,10 +29,10 @@ class _profilePageState extends State<profilePage> {
         .collection("profile")
         .get()
         .then((value) {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         Map test = element.data();
         username = test["username"];
-      });
+      }
     });
 
     setState(() {});
@@ -39,7 +40,7 @@ class _profilePageState extends State<profilePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // implement initState
     super.initState();
     getDetails();
   }
@@ -124,47 +125,45 @@ class _profilePageState extends State<profilePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 35.h,
-                              width: 35.w,
-                              child: CircleAvatar(
-                                backgroundImage: const AssetImage(
-                                  "images/user.jpeg",
+                      Row(
+                        children: [
+                          SizedBox(
+                            height: 35.h,
+                            width: 35.w,
+                            child: CircleAvatar(
+                              backgroundImage: const AssetImage(
+                                "images/user.jpeg",
+                              ),
+                      
+                              backgroundColor:
+                                  Colors.grey.shade300, // user profile
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(top: 7),
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  username,
+                                  style: appstyle(
+                                      12, Colors.black, FontWeight.w600),
                                 ),
-
-                                backgroundColor:
-                                    Colors.grey.shade300, // user profile
-                              ),
+                                Text(
+                                  FirebaseAuth.instance.currentUser!.email
+                                      .toString(),
+                                  style: appstyle(
+                                      12, Colors.black, FontWeight.w300),
+                                ),
+                              ],
                             ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Container(
-                              margin: const EdgeInsets.only(top: 7),
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    username,
-                                    style: appstyle(
-                                        12, Colors.black, FontWeight.w600),
-                                  ),
-                                  Text(
-                                    FirebaseAuth.instance.currentUser!.email
-                                        .toString(),
-                                    style: appstyle(
-                                        12, Colors.black, FontWeight.w300),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                       GestureDetector(
                           onTap: () {},
@@ -183,7 +182,7 @@ class _profilePageState extends State<profilePage> {
               Column(
                 children: [
                   Container(
-                    height: 160.h,
+                    height: 170.h,
                     color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -193,7 +192,7 @@ class _profilePageState extends State<profilePage> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => myOrders()));
+                                      builder: (context) => const myOrders()));
                             },
                             title: "Order",
                             leading: MaterialCommunityIcons.truck_fast_outline),
@@ -226,7 +225,7 @@ class _profilePageState extends State<profilePage> {
                     height: 7.h,
                   ),
                   Container(
-                    height: 110.h,
+                    height: 120.h,
                     color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -246,7 +245,7 @@ class _profilePageState extends State<profilePage> {
                     height: 7.h,
                   ),
                   Container(
-                    height: 160.h,
+                    height: 170.h,
                     color: Colors.white,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -265,7 +264,7 @@ class _profilePageState extends State<profilePage> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => loginPage()));
+                                      builder: (context) => const loginPage()));
                             },
                             title: "Logout",
                             leading: AntDesign.logout),

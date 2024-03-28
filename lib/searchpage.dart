@@ -1,9 +1,11 @@
+// ignore_for_file: camel_case_types
+
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecommerce/model/productcart.dart';
-import 'package:ecommerce/services/helper.dart';
-import 'package:ecommerce/views/productpage.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
-import 'package:ecommerce/views/shared/customfield.dart';
+import 'package:shoe_ecommerce_app/model/productcart.dart';
+import 'package:shoe_ecommerce_app/services/helper.dart';
+import 'package:shoe_ecommerce_app/views/productpage.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
+import 'package:shoe_ecommerce_app/views/shared/customfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -70,124 +72,120 @@ class _searchpageState extends State<searchpage> {
                   ),
                 ),
               )
-            : Container(
-                child: FutureBuilder<List<Sneakers>>(
-                    future: helper().getuserSearchedShoes(search.text),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Center(
-                          child: CircularProgressIndicator.adaptive(),
-                        );
-                      } else if (snapshot.hasError) {
-                        return const Text("error");
-                      } else if (snapshot.data!.isEmpty) {
-                        return Container(
-                          height: MediaQuery.of(context).size.height,
-                          color: Colors.grey.shade300,
-                          child: Center(
-                              child: Text(
-                            "No Product found",
-                            style: appstyle(25, Colors.black, FontWeight.w700),
-                          )),
-                        );
-                      } else {
-                        final shoe = snapshot.data;
-                        return Container(
-                          color: Colors.grey.shade300,
-                          child: ListView.builder(
-                              itemCount: shoe!.length,
-                              itemBuilder: (context, index) {
-                                final current = shoe[index];
-                                return GestureDetector(
-                                  onTap: () {
-                                    // Navigator push ReNamed
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => productPage(
-                                                id: current.id,
-                                                category: current.category,
-                                                shoesize: current.sizes)));
-                                  },
+            : FutureBuilder<List<Sneakers>>(
+                future: helper().getuserSearchedShoes(search.text),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+                  } else if (snapshot.hasError) {
+                    return const Text("error");
+                  } else if (snapshot.data!.isEmpty) {
+                    return Container(
+                      height: MediaQuery.of(context).size.height,
+                      color: Colors.grey.shade300,
+                      child: Center(
+                          child: Text(
+                        "No Product found",
+                        style: appstyle(25, Colors.black, FontWeight.w700),
+                      )),
+                    );
+                  } else {
+                    final shoe = snapshot.data;
+                    return Container(
+                      color: Colors.grey.shade300,
+                      child: ListView.builder(
+                          itemCount: shoe!.length,
+                          itemBuilder: (context, index) {
+                            final current = shoe[index];
+                            return GestureDetector(
+                              onTap: () {
+                                // Navigator push ReNamed
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => productPage(
+                                            id: current.id,
+                                            category: current.category,
+                                            shoesize: current.sizes)));
+                              },
+                              child: Padding(
+                                padding: EdgeInsets.all(8.h),
+                                child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(12)),
                                   child: Container(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(8.h),
-                                      child: ClipRRect(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(12)),
-                                        child: Container(
-                                          height: 90.h,
-                                          width: 325,
-                                          decoration: BoxDecoration(
-                                              color: Colors.white,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                    color: Colors.grey.shade500,
-                                                    spreadRadius: 5,
-                                                    blurRadius: 0.3,
-                                                    offset: const Offset(0, 2))
-                                              ]),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
+                                    height: 90.h,
+                                    width: 325,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                              color: Colors.grey.shade500,
+                                              spreadRadius: 5,
+                                              blurRadius: 0.3,
+                                              offset: const Offset(0, 2))
+                                        ]),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding: EdgeInsets.all(12.h),
+                                          child: CachedNetworkImage(
+                                            imageUrl: current.imageUrl[0],
+                                            width: 70.w,
+                                            height: 70.h,
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                              top: 8.h, left: 20.w),
+                                          child: Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Padding(
-                                                padding: EdgeInsets.all(12.h),
-                                                child: CachedNetworkImage(
-                                                  imageUrl: current.imageUrl[0],
-                                                  width: 70.w,
-                                                  height: 70.h,
-                                                  fit: BoxFit.cover,
-                                                ),
+                                              Text(
+                                                current.name,
+                                                style: appstyle(
+                                                    15,
+                                                    Colors.black,
+                                                    FontWeight.w600),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.only(
-                                                    top: 8.h, left: 20.w),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      current.name,
-                                                      style: appstyle(
-                                                          15,
-                                                          Colors.black,
-                                                          FontWeight.w600),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      current.category,
-                                                      style: appstyle(
-                                                          15,
-                                                          Colors.grey.shade600,
-                                                          FontWeight.w600),
-                                                    ),
-                                                    const SizedBox(
-                                                      height: 5,
-                                                    ),
-                                                    Text(
-                                                      "\$ ${current.price}",
-                                                      style: appstyle(
-                                                          15,
-                                                          Colors.grey.shade600,
-                                                          FontWeight.w600),
-                                                    )
-                                                  ],
-                                                ),
+                                              const SizedBox(
+                                                height: 5,
                                               ),
+                                              Text(
+                                                current.category,
+                                                style: appstyle(
+                                                    15,
+                                                    Colors.grey.shade600,
+                                                    FontWeight.w600),
+                                              ),
+                                              const SizedBox(
+                                                height: 5,
+                                              ),
+                                              Text(
+                                                "\u{20B9} ${current.price}",
+                                                style: appstyle(
+                                                    15,
+                                                    Colors.grey.shade600,
+                                                    FontWeight.w600),
+                                              )
                                             ],
                                           ),
                                         ),
-                                      ),
+                                      ],
                                     ),
                                   ),
-                                );
-                              }),
-                        );
-                      }
-                    }),
-              ));
+                                ),
+                              ),
+                            );
+                          }),
+                    );
+                  }
+                }));
   }
 }

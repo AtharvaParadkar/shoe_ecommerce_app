@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:ecommerce/model/productcart.dart';
-import 'package:ecommerce/views/productpage.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
+import 'package:shoe_ecommerce_app/model/productcart.dart';
+import 'package:shoe_ecommerce_app/views/productpage.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
 import 'package:flutter/material.dart';
 
 class Staggeredtile extends StatefulWidget {
@@ -51,7 +51,7 @@ class _StaggeredtileState extends State<Staggeredtile> {
                     style: appstyleHt(20, Colors.black, FontWeight.w700, 1),
                   ),
                   Text(
-                    "\$${widget.shoes.price}",
+                    "\u{20B9}${widget.shoes.price}",
                     style: appstyleHt(16, Colors.black, FontWeight.w500, 1),
                   ),
                 ],

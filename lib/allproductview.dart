@@ -1,8 +1,11 @@
-import 'package:ecommerce/model/productcart.dart';
-import 'package:ecommerce/staggeredtile.dart';
+// ignore_for_file: camel_case_types, avoid_print
+
+import 'package:shoe_ecommerce_app/model/productcart.dart';
+import 'package:shoe_ecommerce_app/staggeredtile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+// ignore: must_be_immutable
 class allproduct extends StatefulWidget {
   allproduct({super.key, required this.male});
 
@@ -19,10 +22,9 @@ class _allproductState extends State<allproduct> {
       future: widget.male,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return CircularProgressIndicator();
+          return const CircularProgressIndicator();
         } else if (snapshot.hasError) {
           print(" Error ${snapshot.error}");
-
           return Text(" Error ${snapshot.error}");
         } else {
           final userShoe = snapshot.data;

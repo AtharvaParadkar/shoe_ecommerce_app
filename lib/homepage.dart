@@ -1,7 +1,9 @@
-import 'package:ecommerce/model/productcart.dart';
-import 'package:ecommerce/services/helper.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
-import 'package:ecommerce/views/shared/shoesdisplay.dart';
+// ignore_for_file: camel_case_types
+
+import 'package:shoe_ecommerce_app/model/productcart.dart';
+import 'package:shoe_ecommerce_app/services/helper.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
+import 'package:shoe_ecommerce_app/views/shared/shoesdisplay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -34,7 +36,7 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // implement initState
     super.initState();
     getMale();
     getFemale();

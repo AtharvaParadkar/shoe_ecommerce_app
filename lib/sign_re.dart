@@ -1,5 +1,7 @@
-import 'package:ecommerce/loginpage.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
+// ignore_for_file: camel_case_types
+
+import 'package:shoe_ecommerce_app/loginpage.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -93,41 +95,39 @@ class _needLoginState extends State<needLogin> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            SizedBox(
-                              height: 35.h,
-                              width: 35.w,
-                              child: CircleAvatar(
-                                backgroundImage: const AssetImage(
-                                  "images/user.jpeg",
-                                ),
-                                backgroundColor:
-                                    Colors.grey.shade300, // user profile
+                      Row(
+                        children: [
+                          SizedBox(
+                            height: 35.h,
+                            width: 35.w,
+                            child: CircleAvatar(
+                              backgroundImage: const AssetImage(
+                                "images/user.jpeg",
                               ),
+                              backgroundColor:
+                                  Colors.grey.shade300, // user profile
                             ),
-                            const SizedBox(
-                              width: 8,
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            margin: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              "Hello , Please Login into your Account",
+                              style: appstyle(
+                                  12, Colors.black, FontWeight.normal),
                             ),
-                            Container(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              margin: const EdgeInsets.only(top: 5),
-                              child: Text(
-                                "Hello , Please Login into your Account",
-                                style: appstyle(
-                                    12, Colors.black, FontWeight.normal),
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => loginPage()));
+                                  builder: (context) => const loginPage()));
                         },
                         child: Container(
                           width: 50.w,

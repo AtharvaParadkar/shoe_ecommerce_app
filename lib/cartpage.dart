@@ -1,6 +1,9 @@
-import 'package:ecommerce/views/cart.dart';
+// ignore_for_file: camel_case_types
+
+import 'package:shoe_ecommerce_app/views/cart.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class cartPage extends StatefulWidget {
   cartPage({super.key, required this.value});
 

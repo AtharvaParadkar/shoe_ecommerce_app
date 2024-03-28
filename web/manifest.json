@@ -1,6 +1,6 @@
 {
-    "name": "ecommerce",
-    "short_name": "ecommerce",
+    "name": "shoe_ecommerce_app",
+    "short_name": "shoe_ecommerce_app",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

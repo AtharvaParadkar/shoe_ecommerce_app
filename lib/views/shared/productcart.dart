@@ -1,10 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+// ignore_for_file: camel_case_types
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+
+// ignore: must_be_immutable
 class productCard extends StatefulWidget {
   productCard(
       {super.key,
@@ -31,7 +32,7 @@ class _productCardState extends State<productCard> {
 
   @override
   void initState() {
-    // TODO: implement initState
+    // implement initState
     super.initState();
   }
 
@@ -70,19 +71,17 @@ class _productCardState extends State<productCard> {
                       child: GestureDetector(
                         onTap: () async {
                           widget.isfav = !widget.isfav;
-
                           List<String> id = [];
-
                           await FirebaseFirestore.instance
                               .collection("users")
                               .doc(user.email)
                               .collection("shoes")
                               .get()
                               .then((value) {
-                            value.docs.forEach((element) {
+                            for (var element in value.docs) {
                               Map test = element.data();
                               id.add(test["id"]);
-                            });
+                            }
                           });
                           if (id.contains(widget.id)) {
                             await FirebaseFirestore.instance
@@ -158,7 +157,7 @@ class _productCardState extends State<productCard> {
                             width: 5,
                           ),
                           ChoiceChip(
-                            label: Text(" "),
+                            label: const Text(" "),
                             selected: selected,
                             visualDensity: VisualDensity.compact,
                             selectedColor: Colors.black,

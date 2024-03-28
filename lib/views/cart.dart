@@ -1,13 +1,14 @@
+// ignore_for_file: non_constant_identifier_names, avoid_print, unnecessary_string_interpolations
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/CheckOutButton.dart';
-import 'package:ecommerce/controllers/cart_notifer.dart';
-import 'package:ecommerce/home.dart';
-import 'package:ecommerce/model/productcart.dart';
-import 'package:ecommerce/services/helper.dart';
-import 'package:ecommerce/views/payment.dart';
-import 'package:ecommerce/views/productpage.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
+import 'package:shoe_ecommerce_app/CheckOutButton.dart';
+import 'package:shoe_ecommerce_app/controllers/cart_notifer.dart';
+import 'package:shoe_ecommerce_app/model/productcart.dart';
+import 'package:shoe_ecommerce_app/services/helper.dart';
+import 'package:shoe_ecommerce_app/views/payment.dart';
+import 'package:shoe_ecommerce_app/views/productpage.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,6 +17,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class CartPage extends StatefulWidget {
   CartPage({super.key, required this.val});
 
@@ -58,7 +60,7 @@ class _CartPageState extends State<CartPage> {
         .collection("shoes")
         .get()
         .then((value) {
-      value.docs.forEach((shoe) {
+      for (var shoe in value.docs) {
         Map myShoe = shoe.data();
 
         if (myShoe['cart'] == "false") {
@@ -77,7 +79,7 @@ class _CartPageState extends State<CartPage> {
 
         shoe_id.add(myShoe['id']);
         shoe_cat.add(myShoe['gend']);
-      });
+      }
       setState(() {
         isLoading = false;
         cartShoes =
@@ -148,7 +150,6 @@ class _CartPageState extends State<CartPage> {
                           return const CircularProgressIndicator();
                         } else if (snapshot.hasError) {
                           print(" Error ${snapshot.error}");
-
                           return Text(" Error ${snapshot.error}");
                         } else {
                           final shoesList = snapshot.data;
@@ -167,7 +168,6 @@ class _CartPageState extends State<CartPage> {
                                     vari++;
                                   }
                                   check = cart_notify.check_true();
-
                                   print(check);
                                   if (cart_notify.qunatity.isEmpty) {
                                     // activity opening case
@@ -177,13 +177,11 @@ class _CartPageState extends State<CartPage> {
                                     cart_notify.qunatity.clear();
                                     cart_notify.qunat_set(quantity_list);
                                   }
-
                                   // fln_shoes(cart_notify.checked);
                                   checkout_shoes.clear();
                                   checkout_quant.clear();
-
                                   cart_notify.checked.forEach((key, value) {
-                                    shoesList!.forEach((element) {
+                                    for (var element in shoesList!) {
                                       if (element.id == key &&
                                           value == "true") {
                                         checkout_shoes.add(element);
@@ -191,9 +189,8 @@ class _CartPageState extends State<CartPage> {
                                             .qunatity[key]
                                             .toString());
                                       }
-                                    });
+                                    }
                                   });
-
                                   return isLoading
                                       ? SizedBox(
                                           height: MediaQuery.of(context)
@@ -206,7 +203,7 @@ class _CartPageState extends State<CartPage> {
                                         )
                                       : shoesList!.isEmpty
                                           ? Center(
-                                              child: Container(
+                                              child: SizedBox(
                                                 height: MediaQuery.of(context)
                                                     .size
                                                     .height,
@@ -220,7 +217,7 @@ class _CartPageState extends State<CartPage> {
                                             )
                                           : ListView.builder(
                                               // list view have in built the scroll view
-                                              itemCount: shoesList!.length,
+                                              itemCount: shoesList.length,
                                               padding: const EdgeInsets.all(0),
                                               itemBuilder: (context, index) {
                                                 return Padding(
@@ -263,7 +260,7 @@ class _CartPageState extends State<CartPage> {
                                                                 cart_notify
                                                                     .qunatity
                                                                     .clear();
-                                                                await cart_notify
+                                                                cart_notify
                                                                     .data_set(
                                                                         shoesList[index]
                                                                             .id);
@@ -343,7 +340,7 @@ class _CartPageState extends State<CartPage> {
                                                                         ? GestureDetector(
                                                                             onTap:
                                                                                 () async {
-                                                                              await cart_notify.data_set(shoesList[index].id);
+                                                                              cart_notify.data_set(shoesList[index].id);
                                                                               setState(() {
                                                                                 check = cart_notify.check_true();
                                                                               });
@@ -358,7 +355,7 @@ class _CartPageState extends State<CartPage> {
                                                                         : GestureDetector(
                                                                             onTap:
                                                                                 () async {
-                                                                              await cart_notify.data_set(shoesList[index].id);
+                                                                              cart_notify.data_set(shoesList[index].id);
                                                                               setState(() {
                                                                                 check = cart_notify.check_true();
                                                                               });
@@ -416,7 +413,7 @@ class _CartPageState extends State<CartPage> {
                                                                             Row(
                                                                               children: [
                                                                                 Text(
-                                                                                  "\$${shoesList[index].price}",
+                                                                                  "\u{20B9}${shoesList[index].price}",
                                                                                   style: appstyle(18, Colors.black, FontWeight.bold),
                                                                                 ),
                                                                                 const SizedBox(
@@ -491,7 +488,6 @@ class _CartPageState extends State<CartPage> {
                                                                             ),
                                                                           ),
                                                                         ),
-
                                                                         // ),
                                                                       ],
                                                                     )

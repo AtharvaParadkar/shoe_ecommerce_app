@@ -22,10 +22,10 @@ class DefaultFirebaseOptions {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
-      case TargetPlatform.iOS:
-        return ios;
-      case TargetPlatform.macOS:
-        return macos;
+      // case TargetPlatform.iOS:
+      //   return ios;
+      // case TargetPlatform.macOS:
+      //   return macos;
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -60,21 +60,21 @@ class DefaultFirebaseOptions {
     storageBucket: 'e-commerce-4284b.appspot.com',
   );
 
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyA-j2UvlMMEcQTopwqC3FjIBQNjMTn0VPE',
-    appId: '1:1071593264588:ios:0dee80da6750e1f9703969',
-    messagingSenderId: '1071593264588',
-    projectId: 'e-commerce-4284b',
-    storageBucket: 'e-commerce-4284b.appspot.com',
-    iosBundleId: 'com.example.ecommerce',
-  );
+//   static const FirebaseOptions ios = FirebaseOptions(
+//     apiKey: 'AIzaSyA-j2UvlMMEcQTopwqC3FjIBQNjMTn0VPE',
+//     appId: '1:1071593264588:ios:0dee80da6750e1f9703969',
+//     messagingSenderId: '1071593264588',
+//     projectId: 'e-commerce-4284b',
+//     storageBucket: 'e-commerce-4284b.appspot.com',
+//     iosBundleId: 'com.example.shoe_ecommerce_app',
+//   );
 
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyA-j2UvlMMEcQTopwqC3FjIBQNjMTn0VPE',
-    appId: '1:1071593264588:ios:fb9642207ec38d83703969',
-    messagingSenderId: '1071593264588',
-    projectId: 'e-commerce-4284b',
-    storageBucket: 'e-commerce-4284b.appspot.com',
-    iosBundleId: 'com.example.ecommerce.RunnerTests',
-  );
+//   static const FirebaseOptions macos = FirebaseOptions(
+//     apiKey: 'AIzaSyA-j2UvlMMEcQTopwqC3FjIBQNjMTn0VPE',
+//     appId: '1:1071593264588:ios:fb9642207ec38d83703969',
+//     messagingSenderId: '1071593264588',
+//     projectId: 'e-commerce-4284b',
+//     storageBucket: 'e-commerce-4284b.appspot.com',
+//     iosBundleId: 'com.example.shoe_ecommerce_app.RunnerTests',
+//   );
 }

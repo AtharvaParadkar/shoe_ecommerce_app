@@ -1,4 +1,6 @@
-import 'package:ecommerce/model/productcart.dart';
+// ignore_for_file: camel_case_types, avoid_print, non_constant_identifier_names
+
+import 'package:shoe_ecommerce_app/model/productcart.dart';
 import 'package:flutter/services.dart' as the_bundle;
 
 // this class fetches data from the json file and return it to the app
@@ -69,7 +71,7 @@ class helper {
 
     int index = 0;
 
-    id.forEach((element) {
+    for (var element in id) {
       if (categrory[index] == "Men's Running" && fav[index] == 'true') {
         final temp = maleList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
@@ -85,7 +87,7 @@ class helper {
         sneaker.add(temp);
       } else {}
       index++;
-    });
+    }
 
     return sneaker;
   }
@@ -110,7 +112,7 @@ class helper {
 
     int index = 0;
 
-    id.forEach((element) {
+    for (var element in id) {
       if (categrory[index] == "Men's Running") {
         final temp = maleList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
@@ -125,7 +127,7 @@ class helper {
         sneaker.add(temp);
       } else {}
       index++;
-    });
+    }
 
     return sneaker;
   }
@@ -146,23 +148,23 @@ class helper {
 
     final kidsList = sneakersFromJson(data3);
 
-    maleList.forEach((element) {
+    for (var element in maleList) {
       if (element.name.toLowerCase().contains(shoe_name)) {
         searchedShoe.add(element);
       }
-    });
+    }
 
-    femaleList.forEach((element) {
+    for (var element in femaleList) {
       if (element.name.toLowerCase().contains(shoe_name)) {
         searchedShoe.add(element);
       }
-    });
+    }
 
-    kidsList.forEach((element) {
+    for (var element in kidsList) {
       if (element.name.toLowerCase().contains(shoe_name)) {
         searchedShoe.add(element);
       }
-    });
+    }
 
     return searchedShoe;
   }
@@ -187,7 +189,7 @@ class helper {
 
     int index = 0;
 
-    id.forEach((element) {
+    for (var element in id) {
       if (categrory[index] == "Men's Running" && fav[index] == 'true') {
         final temp = maleList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
@@ -203,7 +205,7 @@ class helper {
         sneaker.add(temp);
       } else {}
       index++;
-    });
+    }
 
     return sneaker;
   }

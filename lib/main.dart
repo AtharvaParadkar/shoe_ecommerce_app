@@ -1,11 +1,10 @@
-import 'package:ecommerce/controllers/cart_notifer.dart';
-import 'package:ecommerce/controllers/mainscreen_providers.dart';
-import 'package:ecommerce/controllers/password_notify.dart';
-import 'package:ecommerce/controllers/product_providers.dart';
-import 'package:ecommerce/firebase_options.dart';
-import 'package:ecommerce/home.dart';
-import 'package:ecommerce/loginpage.dart';
-import 'package:ecommerce/sign_re.dart';
+import 'package:shoe_ecommerce_app/controllers/cart_notifer.dart';
+import 'package:shoe_ecommerce_app/controllers/mainscreen_providers.dart';
+import 'package:shoe_ecommerce_app/controllers/password_notify.dart';
+import 'package:shoe_ecommerce_app/controllers/product_providers.dart';
+import 'package:shoe_ecommerce_app/firebase_options.dart';
+import 'package:shoe_ecommerce_app/home.dart';
+import 'package:shoe_ecommerce_app/loginpage.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -38,8 +37,8 @@ void main() async {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
               home: FirebaseAuth.instance.currentUser == null
-                  ? loginPage()
-                  : home());
+                  ?const loginPage()
+                  :const home());
         }),
   ));
 }

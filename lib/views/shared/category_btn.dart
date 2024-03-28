@@ -1,8 +1,8 @@
-import 'package:ecommerce/views/shared/appstyle.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
 import 'package:flutter/material.dart';
 
 class Categorybtn extends StatelessWidget {
-  Categorybtn(
+  const Categorybtn(
       {super.key,
       required this.buttonclr,
       required this.label,
@@ -18,7 +18,7 @@ class Categorybtn extends StatelessWidget {
       onPressed: onPress,
       child: Container(
         height: 45,
-        width: MediaQuery.of(context).size.width * 0.255,
+        width: MediaQuery.of(context).size.width * 0.230,
         decoration: BoxDecoration(
             border: Border.all(
                 width: 1, color: buttonclr, style: BorderStyle.solid),

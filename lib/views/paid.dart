@@ -1,8 +1,8 @@
-import 'package:ecommerce/home.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
+// ignore_for_file: camel_case_types
+
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class successfull extends StatefulWidget {
   const successfull({super.key});
@@ -28,7 +28,7 @@ class _successfullState extends State<successfull> {
         onTap: () {
           Navigator.pop(context);
         },
-        child: Container(
+        child: SizedBox(
           height: MediaQuery.of(context).size.height,
           child: Center(
             child: Column(
@@ -38,7 +38,7 @@ class _successfullState extends State<successfull> {
                   child: Image.asset("images/Checkmark.png"),
                 ),
                 Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: Text(
                     "Paid Successfully ",
                     style: appstyle(35, Colors.black, FontWeight.bold),

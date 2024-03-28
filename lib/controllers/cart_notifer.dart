@@ -1,13 +1,14 @@
-import 'dart:ffi';
+// ignore_for_file: camel_case_types, non_constant_identifier_names, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, avoid_print
+
 
 import 'package:flutter/material.dart';
 
 class cart_Notifer extends ChangeNotifier {
-  Map<String, String> _quantity = {};
+  final Map<String, String> _quantity = {};
 
   Map<String, String> get qunatity => _quantity;
 
-  Map<String, String> _checked = {};
+  final Map<String, String> _checked = {};
   Map<String, String> get checked => _checked;
 
   void checked_data_set(Map<String, String> temp) {
@@ -22,7 +23,7 @@ class cart_Notifer extends ChangeNotifier {
     return _checked.containsValue("true");
   }
 
-  Null data_set(String id) {
+  void data_set(String id) {
     if (_checked["${id}"].toString() == "false" &&
         _quantity[id].toString() != "null") {
       _checked["${id}"] = "true";
@@ -33,7 +34,7 @@ class cart_Notifer extends ChangeNotifier {
     print(_checked);
 
     notifyListeners();
-    return null;
+    return;
   }
 
   String quant_rec(String id) {

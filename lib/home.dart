@@ -1,13 +1,13 @@
-import 'package:ecommerce/cartpage.dart';
-import 'package:ecommerce/controllers/mainscreen_providers.dart';
-import 'package:ecommerce/favouratepage.dart';
-import 'package:ecommerce/homepage.dart';
-import 'package:ecommerce/profilepage.dart';
-import 'package:ecommerce/searchpage.dart';
+// ignore_for_file: camel_case_types
 
-import 'package:ecommerce/views/shared/bottom_nav.dart';
+import 'package:shoe_ecommerce_app/cartpage.dart';
+import 'package:shoe_ecommerce_app/controllers/mainscreen_providers.dart';
+import 'package:shoe_ecommerce_app/favouratepage.dart';
+import 'package:shoe_ecommerce_app/homepage.dart';
+import 'package:shoe_ecommerce_app/profilepage.dart';
+import 'package:shoe_ecommerce_app/searchpage.dart';
+import 'package:shoe_ecommerce_app/views/shared/bottom_nav.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -20,15 +20,15 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   List<Widget> pageList = [
-    homePage(),
-    searchpage(),
-    Favourates(
+    const homePage(),
+    const searchpage(),
+    const Favourates(
       cross: false,
     ),
     cartPage(
       value: 0,
     ),
-    profilePage()
+    const profilePage()
   ];
   @override
   void initState() {
@@ -43,7 +43,6 @@ class _homeState extends State<home> {
       // mainScreenNotifier is the object
       return Scaffold(
         backgroundColor: const Color(0xFFE2E2E2),
-
         body: pageList[mainScreenNotifier.pageIndex], // getting the variable
         bottomNavigationBar: SafeArea(
             child: Padding(

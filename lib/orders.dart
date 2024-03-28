@@ -1,8 +1,10 @@
+// ignore_for_file: camel_case_types, non_constant_identifier_names, unnecessary_string_interpolations
+
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/model/productcart.dart';
-import 'package:ecommerce/services/helper.dart';
-import 'package:ecommerce/views/productpage.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
+import 'package:shoe_ecommerce_app/model/productcart.dart';
+import 'package:shoe_ecommerce_app/services/helper.dart';
+import 'package:shoe_ecommerce_app/views/productpage.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,13 +34,13 @@ class _myOrdersState extends State<myOrders> {
         .collection("ordered")
         .get()
         .then((value) {
-      value.docs.forEach((shoe) {
+      for (var shoe in value.docs) {
         Map myShoe = shoe.data();
         shoe_id.add(myShoe['id']);
         shoe_cat.add(myShoe['gend']);
         delivery["${myShoe['id']}"] = myShoe["delivered"];
         pay_price["${myShoe['id']}"] = myShoe["amount"];
-      });
+      }
       setState(() {
         isLoading = false;
         PaidOrders = helper().getorderedSneakersById(shoe_id, shoe_cat);
@@ -110,7 +112,6 @@ class _myOrdersState extends State<myOrders> {
                                       18, Colors.black, FontWeight.bold));
                             } else {
                               final products = snapshot.data;
-
                               return products!.isEmpty
                                   ? Container(
                                       padding: EdgeInsets.only(right: 50.w),
@@ -123,7 +124,7 @@ class _myOrdersState extends State<myOrders> {
                                       ),
                                     )
                                   : ListView.builder(
-                                      itemCount: products!.length,
+                                      itemCount: products.length,
                                       itemBuilder: (context, index) {
                                         return GestureDetector(
                                           onTap: () {
@@ -194,7 +195,7 @@ class _myOrdersState extends State<myOrders> {
                                                         SizedBox(
                                                           height: 5.h,
                                                         ),
-                                                        Container(
+                                                        SizedBox(
                                                           width: 325 * 0.6,
                                                           child: FittedBox(
                                                             // aoutomatically fits the text in the particular container
@@ -214,7 +215,7 @@ class _myOrdersState extends State<myOrders> {
                                                           height: 5.h,
                                                         ),
                                                         Text(
-                                                          "\$ ${pay_price["${products[index].id}"].toString()}",
+                                                          "\u{20B9} ${pay_price["${products[index].id}"].toString()}",
                                                           style: appstyle(
                                                               12,
                                                               Colors.grey

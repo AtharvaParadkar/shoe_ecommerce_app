@@ -1,4 +1,4 @@
-# ecommerce
+# shoe_ecommerce_app
 
 🚀 Excited to unveil my latest project: a state-of-the-art shoe e-commerce app created using Flutter! 📱
 
@@ -18,7 +18,7 @@ Exciting Future Plans: In the next phase of this project, I'm thrilled to announ
 
 It's been an incredible journey of learning, growth, and accomplishment, and I can't wait to share this app with the world. Stay tuned for more exciting updates, and don't hesitate to reach out if you have any questions or want to know more about the project. 🛍️💼
 
-#Flutter #ECommerceApp #Firebase #AppDevelopment #Provider #UIUX #LinkedInProjects
+#Flutter #shoe_ecommerce_appApp #Firebase #AppDevelopment #Provider #UIUX #LinkedInProjects
 
 ![one](https://github.com/dhrv-sharma/shoe-e-commerce-app/assets/99127279/ce12bc70-3657-4fab-ab53-8ab5b0fda616)
 
@@ -34,7 +34,7 @@ Cool Additions: I also added Slidable and other neat features to enhance user in
 
 It's been an incredible journey of learning, growth, and accomplishment, and I can't wait to share this app with the world. Stay tuned for more exciting updates, and don't hesitate to reach out if you have any questions or want to know more about the project. 🛍️💼
 
-#Flutter #ECommerceApp #Firebase #AppDevelopment #Provider #UIUX #LinkedInProjects
+#Flutter #shoe_ecommerce_appApp #Firebase #AppDevelopment #Provider #UIUX #LinkedInProjects
 
 
 

@@ -1,9 +1,11 @@
+// ignore_for_file: camel_case_types, avoid_print
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ecommerce/controllers/product_providers.dart';
-import 'package:ecommerce/model/productcart.dart';
-import 'package:ecommerce/services/helper.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
+import 'package:shoe_ecommerce_app/controllers/product_providers.dart';
+import 'package:shoe_ecommerce_app/model/productcart.dart';
+import 'package:shoe_ecommerce_app/services/helper.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,7 +34,7 @@ class _productPageState extends State<productPage> {
   bool pressed = false;
 
   final user = FirebaseAuth.instance.currentUser!;
-  final PageController _pageController = new PageController();
+  final PageController _pageController = PageController();
 
   late Future<Sneakers> _sneakers;
   void getshoes() {
@@ -54,18 +56,17 @@ class _productPageState extends State<productPage> {
         .collection("shoes")
         .get()
         .then((value) {
-      value.docs.forEach((element) {
+      for (var element in value.docs) {
         Map test = element.data();
         if (test["fav"] == "true") {
           fav.add(test["id"]);
-
           if (test["id"] == widget.id) {
             if (test["cart"] == "true") {
               isCarted = true;
             }
           }
         }
-      });
+      }
       isLoading = false;
       setState(() {});
     });
@@ -97,7 +98,6 @@ class _productPageState extends State<productPage> {
             return const CircularProgressIndicator();
           } else if (snapshot.hasError) {
             print(" Error ${snapshot.error}");
-
             return Text(" Error ${snapshot.error}");
           } else {
             final userShoe = snapshot.data;
@@ -192,87 +192,84 @@ class _productPageState extends State<productPage> {
                                                           .height *
                                                       0.05,
                                                   right: 16,
-                                                  child: Container(
-                                                    child: GestureDetector(
-                                                      onTap: () async {
-                                                        List<String> id = [];
-
+                                                  child: GestureDetector(
+                                                    onTap: () async {
+                                                      List<String> id = [];
+                                                  
+                                                      await FirebaseFirestore
+                                                          .instance
+                                                          .collection("users")
+                                                          .doc(user.email)
+                                                          .collection("shoes")
+                                                          .get()
+                                                          .then((value) {
+                                                        for (var element in value.docs) {
+                                                          Map test =
+                                                              element.data();
+                                                          id.add(test["id"]);
+                                                        }
+                                                      });
+                                                      if (id.contains(
+                                                          widget.id)) {
                                                         await FirebaseFirestore
                                                             .instance
-                                                            .collection("users")
+                                                            .collection(
+                                                                "users")
                                                             .doc(user.email)
-                                                            .collection("shoes")
-                                                            .get()
-                                                            .then((value) {
-                                                          value.docs.forEach(
-                                                              (element) {
-                                                            Map test =
-                                                                element.data();
-                                                            id.add(test["id"]);
-                                                          });
+                                                            .collection(
+                                                                "shoes")
+                                                            .doc(widget.id)
+                                                            .update({
+                                                          "fav":
+                                                              "${!productNotifiers.isFav}",
                                                         });
-                                                        if (id.contains(
-                                                            widget.id)) {
-                                                          await FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  "users")
-                                                              .doc(user.email)
-                                                              .collection(
-                                                                  "shoes")
-                                                              .doc(widget.id)
-                                                              .update({
-                                                            "fav":
-                                                                "${!productNotifiers.isFav}",
-                                                          });
-                                                        } else {
-                                                          await FirebaseFirestore
-                                                              .instance
-                                                              .collection(
-                                                                  "users")
-                                                              .doc(user.email)
-                                                              .collection(
-                                                                  "shoes")
-                                                              .doc(widget.id)
-                                                              .set({
-                                                            "id": widget.id,
-                                                            "fav": "true",
-                                                            "gend":
-                                                                widget.category,
-                                                            "cart": "false",
-                                                          });
-                                                        }
-
-                                                        productNotifiers
-                                                            .favChang(
-                                                                !productNotifiers
-                                                                    .isFav);
-
-                                                        productNotifiers.lFav(
-                                                            !productNotifiers
-                                                                .isFav);
-
-                                                        if (fav.contains(
-                                                            widget.id)) {
-                                                          fav.remove(widget.id);
-                                                        } else {
-                                                          fav.add(widget.id);
-                                                        }
-                                                      },
-                                                      child: productNotifiers
-                                                              .isFav
-                                                          ? const Icon(
-                                                              Icons.favorite,
-                                                              color:
-                                                                  Colors.black,
-                                                            )
-                                                          : const Icon(
-                                                              Icons
-                                                                  .favorite_border_sharp,
-                                                              color:
-                                                                  Colors.grey,
-                                                            ),
-                                                    ),
+                                                      } else {
+                                                        await FirebaseFirestore
+                                                            .instance
+                                                            .collection(
+                                                                "users")
+                                                            .doc(user.email)
+                                                            .collection(
+                                                                "shoes")
+                                                            .doc(widget.id)
+                                                            .set({
+                                                          "id": widget.id,
+                                                          "fav": "true",
+                                                          "gend":
+                                                              widget.category,
+                                                          "cart": "false",
+                                                        });
+                                                      }
+                                                  
+                                                      productNotifiers
+                                                          .favChang(
+                                                              !productNotifiers
+                                                                  .isFav);
+                                                  
+                                                      productNotifiers.lFav(
+                                                          !productNotifiers
+                                                              .isFav);
+                                                  
+                                                      if (fav.contains(
+                                                          widget.id)) {
+                                                        fav.remove(widget.id);
+                                                      } else {
+                                                        fav.add(widget.id);
+                                                      }
+                                                    },
+                                                    child: productNotifiers
+                                                            .isFav
+                                                        ? const Icon(
+                                                            Icons.favorite,
+                                                            color:
+                                                                Colors.black,
+                                                          )
+                                                        : const Icon(
+                                                            Icons
+                                                                .favorite_border_sharp,
+                                                            color:
+                                                                Colors.grey,
+                                                          ),
                                                   ),
                                                 ),
                                                 Positioned(
@@ -396,7 +393,7 @@ class _productPageState extends State<productPage> {
                                                             .spaceBetween,
                                                     children: [
                                                       Text(
-                                                        "\$${userShoe.price}",
+                                                        "\u{20B9}${userShoe.price}",
                                                         style: appstyle(
                                                             26,
                                                             Colors.black,
@@ -609,17 +606,16 @@ class _productPageState extends State<productPage> {
                                           child: MaterialButton(
                                             onPressed: () async {
                                               List<String> id = [];
-
                                               await FirebaseFirestore.instance
                                                   .collection("users")
                                                   .doc(user.email)
                                                   .collection("shoes")
                                                   .get()
                                                   .then((value) {
-                                                value.docs.forEach((element) {
+                                                for (var element in value.docs) {
                                                   Map test = element.data();
                                                   id.add(test["id"]);
-                                                });
+                                                }
                                               });
                                               if (id.contains(widget.id)) {
                                                 await FirebaseFirestore.instance
@@ -657,7 +653,6 @@ class _productPageState extends State<productPage> {
                                                           .sizeChecked()
                                                 });
                                               }
-
                                               pressed = true;
                                               setState(() {});
                                             },

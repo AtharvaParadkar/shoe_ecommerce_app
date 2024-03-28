@@ -1,11 +1,13 @@
-import 'package:ecommerce/allproductview.dart';
+// ignore_for_file: file_names, camel_case_types
 
-import 'package:ecommerce/model/productcart.dart';
+import 'package:shoe_ecommerce_app/allproductview.dart';
 
-import 'package:ecommerce/services/helper.dart';
-import 'package:ecommerce/views/shared/appstyle.dart';
-import 'package:ecommerce/views/shared/category_btn.dart';
-import 'package:ecommerce/views/shared/custom_spacer.dart';
+import 'package:shoe_ecommerce_app/model/productcart.dart';
+
+import 'package:shoe_ecommerce_app/services/helper.dart';
+import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
+import 'package:shoe_ecommerce_app/views/shared/category_btn.dart';
+import 'package:shoe_ecommerce_app/views/shared/custom_spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -27,7 +29,7 @@ class _productByCatState extends State<productByCat>
   late Future<List<Sneakers>> _female;
   late Future<List<Sneakers>> _kid;
 
-  double _value = 100;
+  final double _value = 100;
 
   List<String> brand = [
     "images/adidas.png",
@@ -50,7 +52,7 @@ class _productByCatState extends State<productByCat>
 
   @override
   void initState() {
-    // TODO: implement initState
+    // implement initState
     super.initState();
     getMale();
     getFemale();
@@ -246,10 +248,10 @@ class _productByCatState extends State<productByCat>
                             thumbColor: Colors.black,
                             overlayColor: Colors.black.withAlpha(
                                 32), // Optional: Color when thumb is pressed
-                            thumbShape:
-                                RoundSliderThumbShape(enabledThumbRadius: 10.0),
-                            overlayShape:
-                                RoundSliderOverlayShape(overlayRadius: 20.0),
+                            thumbShape: const RoundSliderThumbShape(
+                                enabledThumbRadius: 10.0),
+                            overlayShape: const RoundSliderOverlayShape(
+                                overlayRadius: 20.0),
                           ),
                           child: Slider(
                             value: _value,
@@ -276,16 +278,17 @@ class _productByCatState extends State<productByCat>
                                 return Padding(
                                   padding: const EdgeInsets.all(8),
                                   child: Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey.shade200,
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(12)),
-                                      ),
-                                      child: Image.asset(
-                                        brand[index],
-                                        height: 60,
-                                        width: 80,
-                                      )),
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade200,
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(12)),
+                                    ),
+                                    child: Image.asset(
+                                      brand[index],
+                                      height: 60,
+                                      width: 80,
+                                    ),
+                                  ),
                                 );
                               }),
                         )
