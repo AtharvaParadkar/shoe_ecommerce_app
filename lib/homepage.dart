@@ -49,64 +49,65 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin {
       statusBarColor: Colors.black, // status bar color
     ));
     return Scaffold(
-        backgroundColor: const Color(0xFFE2E2E2),
-        body: SizedBox(
-          height: MediaQuery.of(context).size.height,
-          child: Stack(
-            children: [
-              Container(
-                padding: const EdgeInsets.fromLTRB(16, 45, 0, 0),
-                height: MediaQuery.of(context).size.height * 0.4,
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("images/top.png"), fit: BoxFit.fill),
-                ),
-                child: Container(
-                  padding: const EdgeInsets.only(left: 8, bottom: 15),
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Athletic Shoes",
-                          style: appstyleHt(
-                              42, Colors.white, FontWeight.bold, 1.5),
+      backgroundColor: const Color(0xFFE2E2E2),
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: Stack(
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(16, 45, 0, 0),
+              height: MediaQuery.of(context).size.height * 0.4,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("images/top.png"), fit: BoxFit.fill),
+              ),
+              child: Container(
+                padding: const EdgeInsets.only(left: 8, bottom: 15),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Sneakers",
+                      style: appstyleHt(42, Colors.white, FontWeight.bold, 1.5),
+                    ),
+                    Text(
+                      "Collection",
+                      style: appstyleHt(42, Colors.white, FontWeight.bold, 1.2),
+                    ),
+                    TabBar(
+                      padding: EdgeInsets.zero,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      indicatorColor: Colors.transparent,
+                      controller: tabController,
+                      isScrollable: true,
+                      labelColor: Colors.white,
+                      labelStyle: appstyle(24, Colors.white, FontWeight.bold),
+                      unselectedLabelColor: const Color.fromARGB(255, 125, 125, 125).withOpacity(0.7),
+                      tabs: const [
+                        Tab(
+                          text: "Men Shoes",
                         ),
-                        Text(
-                          "Collection",
-                          style: appstyleHt(
-                              42, Colors.white, FontWeight.bold, 1.2),
+                        Tab(
+                          text: "Women Shoes",
                         ),
-                        TabBar(
-                            padding: EdgeInsets.zero,
-                            indicatorSize: TabBarIndicatorSize.label,
-                            indicatorColor: Colors.transparent,
-                            controller: tabController,
-                            isScrollable: true,
-                            labelColor: Colors.white,
-                            labelStyle:
-                                appstyle(24, Colors.white, FontWeight.bold),
-                            unselectedLabelColor: Colors.grey.withOpacity(0.3),
-                            tabs: const [
-                              Tab(
-                                text: "Men Shoes",
-                              ),
-                              Tab(
-                                text: "Women Shoes",
-                              ),
-                              Tab(
-                                text: "Kids Shoes",
-                              )
-                            ]),
-                      ]),
+                        Tab(
+                          text: "Kids Shoes",
+                        )
+                      ],
+                    ),
+                  ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.265),
-                child: Container(
-                  padding: const EdgeInsets.only(left: 12),
-                  child: TabBarView(controller: tabController, children: [
+            ),
+            Padding(
+              padding: EdgeInsets.only(
+                  top: MediaQuery.of(context).size.height * 0.265),
+              child: Container(
+                padding: const EdgeInsets.only(left: 12),
+                child: TabBarView(
+                  controller: tabController,
+                  children: [
                     homeShoe(
                       userShoe: _male,
                       tabindex: 0,
@@ -119,11 +120,13 @@ class _homePageState extends State<homePage> with TickerProviderStateMixin {
                       userShoe: _kid,
                       tabindex: 2,
                     ),
-                  ]),
+                  ],
                 ),
-              )
-            ],
-          ),
-        ));
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

@@ -61,8 +61,7 @@ class _FavouratesState extends State<Favourates> {
   void initState() {
     super.initState();
     getdetails();
-
-    // set state is used as line 60 get already exexuted
+    // set state is used as line 60 get already executed
   }
 
   @override
@@ -184,9 +183,10 @@ class _FavouratesState extends State<Favourates> {
                                               GestureDetector(
                                                 onTap: () {
                                                   Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) => productPage(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          productPage(
                                                               shoesize:
                                                                   shoelist[
                                                                           index]
@@ -196,14 +196,16 @@ class _FavouratesState extends State<Favourates> {
                                                                   .id,
                                                               category: shoelist[
                                                                       index]
-                                                                  .category)));
+                                                                  .category),
+                                                    ),
+                                                  );
                                                 },
                                                 child: Row(
                                                   children: [
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.all(
-                                                              12),
+                                                              8),
                                                       child: CachedNetworkImage(
                                                         imageUrl:
                                                             shoelist[index]
@@ -216,8 +218,8 @@ class _FavouratesState extends State<Favourates> {
                                                     Padding(
                                                       padding:
                                                           const EdgeInsets.only(
-                                                              left: 20.0,
-                                                              top: 12),
+                                                              left: 5.0,
+                                                              top: 8),
                                                       child: Column(
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment

@@ -1,8 +1,8 @@
-// ignore_for_file: camel_case_types, non_constant_identifier_names, body_might_complete_normally_nullable, use_build_context_synchronously
+// ignore_for_file: camel_case_types, non_constant_identifier_names, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shoe_ecommerce_app/controllers/password_notify.dart';
-import 'package:shoe_ecommerce_app/home.dart';
+import 'package:shoe_ecommerce_app/loginpage.dart';
 import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
 import 'package:shoe_ecommerce_app/views/shared/customfield.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -70,6 +70,7 @@ class _resgisterUserState extends State<resgisterUser> {
                   // checking the input user
                   return 'Username can\'t be null';
                 }
+                return null;
               },
               prefixIcon: const Icon(
                 Icons.person_2,
@@ -88,6 +89,7 @@ class _resgisterUserState extends State<resgisterUser> {
                   // checking the input user
                   return 'Please provide valid email';
                 }
+                return null;
               },
               prefixIcon: const Icon(
                 Icons.email,
@@ -116,6 +118,7 @@ class _resgisterUserState extends State<resgisterUser> {
                   // checking the input user
                   return 'Password too weak';
                 }
+                return null;
               },
               prefixIcon: const Icon(
                 Icons.lock,
@@ -141,31 +144,32 @@ class _resgisterUserState extends State<resgisterUser> {
               height: 40.h,
             ),
             GestureDetector(
-                onTap: () async {
-                  await FirebaseAuth.instance.createUserWithEmailAndPassword(
-                      email: email_lg.text, password: pass_lg.text);
-                  await FirebaseFirestore.instance
-                      .collection("users")
-                      .doc(email_lg.text)
-                      .collection("profile")
-                      .doc(email_lg.text)
-                      .set({"username": confm_lg.text, "email": email_lg.text});
-                  Navigator.pushReplacement(
-                      context, MaterialPageRoute(builder: (context) => const home()));
-                },
-                child: Container(
-                  height: 55.h,
-                  width: 300,
-                  decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(Radius.circular(12))),
-                  child: Center(
-                    child: Text(
-                      "S I G N U P",
-                      style: appstyle(18, Colors.black, FontWeight.bold),
-                    ),
+              onTap: () async {
+                await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                    email: email_lg.text, password: pass_lg.text);
+                await FirebaseFirestore.instance
+                    .collection("users")
+                    .doc(email_lg.text)
+                    .collection("profile")
+                    .doc(email_lg.text)
+                    .set({"username": confm_lg.text, "email": email_lg.text});
+                Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => const loginPage()));
+              },
+              child: Container(
+                height: 55.h,
+                width: 300,
+                decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(12))),
+                child: Center(
+                  child: Text(
+                    "S I G N U P",
+                    style: appstyle(18, Colors.black, FontWeight.bold),
                   ),
-                ))
+                ),
+              ),
+            )
           ],
         ),
       ),

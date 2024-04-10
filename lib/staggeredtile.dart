@@ -24,12 +24,14 @@ class _StaggeredtileState extends State<Staggeredtile> {
       child: GestureDetector(
         onTap: () {
           Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => productPage(
-                      shoesize: widget.shoes.sizes,
-                      id: widget.shoes.id,
-                      category: widget.shoes.category)));
+            context,
+            MaterialPageRoute(
+              builder: (context) => productPage(
+                  shoesize: widget.shoes.sizes,
+                  id: widget.shoes.id,
+                  category: widget.shoes.category),
+            ),
+          );
         },
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

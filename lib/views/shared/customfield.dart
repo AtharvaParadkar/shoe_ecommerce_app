@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CustomField extends StatelessWidget {
   const CustomField({
-    Key? key,
+    super.key,
     required this.hintText,
     required this.controller,
     required this.ts,
@@ -13,7 +13,7 @@ class CustomField extends StatelessWidget {
     this.obscureText,
     this.onEditingComplete,
     this.prefixIcon,
-  }) : super(key: key);
+  });
 
   final TextEditingController controller;
   final String hintText;

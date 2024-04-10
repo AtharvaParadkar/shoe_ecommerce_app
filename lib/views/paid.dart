@@ -1,5 +1,6 @@
 // ignore_for_file: camel_case_types
 
+import 'package:shoe_ecommerce_app/home.dart';
 import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,7 +27,9 @@ class _successfullState extends State<successfull> {
       ),
       body: GestureDetector(
         onTap: () {
-          Navigator.pop(context);
+          // Navigator.pop(context);
+          Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const home()));
         },
         child: SizedBox(
           height: MediaQuery.of(context).size.height,

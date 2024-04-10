@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, non_constant_identifier_names, unnecessary_string_interpolations, unnecessary_brace_in_string_interps, avoid_print
+// ignore_for_file: camel_case_types, non_constant_identifier_names,  avoid_print
 
 
 import 'package:flutter/material.dart';
@@ -16,7 +16,7 @@ class cart_Notifer extends ChangeNotifier {
   }
 
   String checked_data_get(String id) {
-    return _checked["${id}"].toString();
+    return _checked[id].toString();
   }
 
   bool check_true() {
@@ -24,11 +24,11 @@ class cart_Notifer extends ChangeNotifier {
   }
 
   void data_set(String id) {
-    if (_checked["${id}"].toString() == "false" &&
+    if (_checked[id].toString() == "false" &&
         _quantity[id].toString() != "null") {
-      _checked["${id}"] = "true";
+      _checked[id] = "true";
     } else {
-      _checked["${id}"] = "false";
+      _checked[id] = "false";
     }
 
     print(_checked);

@@ -22,10 +22,16 @@ class DefaultFirebaseOptions {
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
-      // case TargetPlatform.iOS:
-      //   return ios;
-      // case TargetPlatform.macOS:
-      //   return macos;
+      case TargetPlatform.iOS:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
+      case TargetPlatform.macOS:
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -44,37 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyBrqkccy9b9aN7bgk8Rfd5sZWec5pBrhDo',
-    appId: '1:1071593264588:web:21cc249052387e10703969',
-    messagingSenderId: '1071593264588',
-    projectId: 'e-commerce-4284b',
-    authDomain: 'e-commerce-4284b.firebaseapp.com',
-    storageBucket: 'e-commerce-4284b.appspot.com',
+    apiKey: 'AIzaSyC01G7_YJAANOKQGokPPACJ3eQAOkgiDdg',
+    appId: '1:474276494625:web:40186412cedb6851d69260',
+    messagingSenderId: '474276494625',
+    projectId: 'shoe-ecommerce-app-65d43',
+    authDomain: 'shoe-ecommerce-app-65d43.firebaseapp.com',
+    storageBucket: 'shoe-ecommerce-app-65d43.appspot.com',
+    measurementId: 'G-0KCLJE8Z6E',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDaXKvAnlwGIi_Uyzh6c3oqMDY53xWdFBg',
-    appId: '1:1071593264588:android:8cc9047f9553ef76703969',
-    messagingSenderId: '1071593264588',
-    projectId: 'e-commerce-4284b',
-    storageBucket: 'e-commerce-4284b.appspot.com',
+    apiKey: 'AIzaSyCS9ihE2moJl6-IqUQCBD8ylfrdmeecjWQ',
+    appId: '1:474276494625:android:3fa3f9a231c75befd69260',
+    messagingSenderId: '474276494625',
+    projectId: 'shoe-ecommerce-app-65d43',
+    storageBucket: 'shoe-ecommerce-app-65d43.appspot.com',
   );
-
-//   static const FirebaseOptions ios = FirebaseOptions(
-//     apiKey: 'AIzaSyA-j2UvlMMEcQTopwqC3FjIBQNjMTn0VPE',
-//     appId: '1:1071593264588:ios:0dee80da6750e1f9703969',
-//     messagingSenderId: '1071593264588',
-//     projectId: 'e-commerce-4284b',
-//     storageBucket: 'e-commerce-4284b.appspot.com',
-//     iosBundleId: 'com.example.shoe_ecommerce_app',
-//   );
-
-//   static const FirebaseOptions macos = FirebaseOptions(
-//     apiKey: 'AIzaSyA-j2UvlMMEcQTopwqC3FjIBQNjMTn0VPE',
-//     appId: '1:1071593264588:ios:fb9642207ec38d83703969',
-//     messagingSenderId: '1071593264588',
-//     projectId: 'e-commerce-4284b',
-//     storageBucket: 'e-commerce-4284b.appspot.com',
-//     iosBundleId: 'com.example.shoe_ecommerce_app.RunnerTests',
-//   );
 }

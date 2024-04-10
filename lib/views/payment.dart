@@ -1,8 +1,7 @@
-// ignore_for_file: camel_case_types, avoid_print
+// ignore_for_file: camel_case_types, avoid_print, avoid_function_literals_in_foreach_calls
 
-import 'dart:io';
-
-import 'package:checkout_screen_ui/checkout_page.dart';
+import 'package:checkout_screen_ui/checkout_ui.dart';
+import 'package:checkout_screen_ui/models/checkout_result.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shoe_ecommerce_app/model/productcart.dart';
 import 'package:shoe_ecommerce_app/views/paid.dart';
@@ -27,17 +26,24 @@ class _paymenTpageState extends State<paymenTpage> {
   void setData() {
     int index = 0;
     for (var element in widget.orderedShoes) {
-      _priceItems.add(PriceItem(
+      double productPrice = double.parse(element.price);
+      int totalPriceInCents =
+          (productPrice * 100).round(); 
+      int quantity = int.parse(widget.quant[index]);
+
+      _priceItems.add(
+        PriceItem(
           name: element.name,
-          quantity: int.parse(widget.quant[index]),
-          totalPriceCents: int.parse(element.price.split(".")[0]) *
-              100 *
-              int.parse(widget.quant[index])));
+          quantity: quantity,
+          itemCostCents: totalPriceInCents,
+        ),
+      );
       index++;
     }
-
     setState(() {});
   }
+
+  void Function(CheckOutResult)? onNativePay;
 
   @override
   void initState() {
@@ -49,21 +55,20 @@ class _paymenTpageState extends State<paymenTpage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-          elevation: 0,
-          systemOverlayStyle: SystemUiOverlayStyle(
-            systemNavigationBarColor: Colors.grey.shade100, // Navigation bar
-            statusBarColor: Colors.grey.shade100, // Status bar
-          ),
+      appBar: AppBar(
+        toolbarHeight: 0,
+        elevation: 0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          systemNavigationBarColor: Colors.grey.shade100, // Navigation bar
+          statusBarColor: Colors.grey.shade100, // Status bar
         ),
-        body: CheckoutPage(
+      ),
+      body: CheckoutPage(
+        data: CheckoutData(
           priceItems: _priceItems,
-          payToName: 'Nike Officials',
-          displayNativePay: true,
-          onNativePay: () {
+          payToName: 'Atharva Enterprises',
+          onNativePay: (checkoutresult) {
             int index = 0;
-            // ignore: avoid_function_literals_in_foreach_calls
             widget.orderedShoes.forEach((element) async {
               await FirebaseFirestore.instance
                   .collection("users")
@@ -75,7 +80,7 @@ class _paymenTpageState extends State<paymenTpage> {
                 "paid": "true",
                 "delivered": "pending",
                 "amount":
-                    "${int.parse(element.price.split(".")[0]) * int.parse(widget.quant[index])}"
+                    "${(int.parse(element.price) * int.parse(widget.quant[index]))}",
               });
               await FirebaseFirestore.instance
                   .collection("users")
@@ -85,12 +90,37 @@ class _paymenTpageState extends State<paymenTpage> {
                   .update({"cart": "false", "quantity": "1"});
             });
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) =>const successfull()));
+                MaterialPageRoute(builder: (context) => const successfull()));
           },
-          isApple: Platform.isIOS,
-          onCardPay: (results) =>
-              print('Credit card form submitted with results: $results'),
+          onCardPay: (cardformresults, checkoutresult) {
+            int index = 0;
+            widget.orderedShoes.forEach((element) async {
+              await FirebaseFirestore.instance
+                  .collection("users")
+                  .doc(FirebaseAuth.instance.currentUser!.email)
+                  .collection("ordered")
+                  .add({
+                "id": element.id,
+                "gend": element.category,
+                "paid": "true",
+                "delivered": "pending",
+                "amount":
+                    "${(int.parse(element.price) * int.parse(widget.quant[index]))}",
+              });
+              await FirebaseFirestore.instance
+                  .collection("users")
+                  .doc(FirebaseAuth.instance.currentUser!.email)
+                  .collection("shoes")
+                  .doc(element.id)
+                  .update({"cart": "false", "quantity": "1"});
+            });
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const successfull()));
+          },
+              // print('Credit card : $CardFormResults, $CheckOutResult'),
           onBack: () => Navigator.of(context).pop(),
-        ));
+        ),
+      ),
+    );
   }
 }

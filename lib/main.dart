@@ -19,7 +19,9 @@ void main() async {
     systemNavigationBarColor: Colors.grey.shade300, // navigation bar color
   ));
 
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   runApp(MultiProvider(
     // Multiproviders
@@ -37,8 +39,8 @@ void main() async {
           return MaterialApp(
               debugShowCheckedModeBanner: false,
               home: FirebaseAuth.instance.currentUser == null
-                  ?const loginPage()
-                  :const home());
+                  ? const loginPage()
+                  : const home());
         }),
   ));
 }

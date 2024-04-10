@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, non_constant_identifier_names, unnecessary_string_interpolations
+// ignore_for_file: camel_case_types, non_constant_identifier_names,
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shoe_ecommerce_app/model/productcart.dart';
@@ -129,27 +129,29 @@ class _myOrdersState extends State<myOrders> {
                                         return GestureDetector(
                                           onTap: () {
                                             Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        productPage(
-                                                            id: products[index]
-                                                                .id,
-                                                            category:
-                                                                products[index]
-                                                                    .category,
-                                                            shoesize:
-                                                                products[index]
-                                                                    .sizes)));
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    productPage(
+                                                        id: products[index].id,
+                                                        category:
+                                                            products[index]
+                                                                .category,
+                                                        shoesize:
+                                                            products[index]
+                                                                .sizes),
+                                              ),
+                                            );
                                           },
                                           child: Container(
                                             margin: const EdgeInsets.all(8),
                                             padding: const EdgeInsets.all(8),
                                             height: 75.h,
                                             decoration: const BoxDecoration(
-                                                color: Colors.black12,
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(12))),
+                                              color: Colors.black12,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(12)),
+                                            ),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
@@ -157,25 +159,29 @@ class _myOrdersState extends State<myOrders> {
                                                 Row(
                                                   children: [
                                                     Container(
-                                                      decoration: const BoxDecoration(
-                                                          color: Colors.white,
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          12))),
+                                                      decoration:
+                                                          const BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                          Radius.circular(12),
+                                                        ),
+                                                      ),
                                                       child: Padding(
                                                         padding:
                                                             const EdgeInsets
-                                                                .all(8.0),
+                                                                .all(3.0),
                                                         child: Image.network(
                                                           products[index]
                                                               .imageUrl[0],
+                                                          height: 70,
+                                                          width: 70,
+                                                          fit: BoxFit.fill,
                                                         ),
                                                       ),
                                                     ),
-                                                    SizedBox(
-                                                      width: 5.w,
+                                                    const SizedBox(
+                                                      width: 3,
                                                     ),
                                                     Column(
                                                       crossAxisAlignment:
@@ -185,42 +191,59 @@ class _myOrdersState extends State<myOrders> {
                                                           MainAxisAlignment
                                                               .start,
                                                       children: [
-                                                        Text(
-                                                          products[index].name,
-                                                          style: appstyle(
-                                                              12,
-                                                              Colors.black,
-                                                              FontWeight.bold),
+                                                        const SizedBox(
+                                                          height: 3,
                                                         ),
                                                         SizedBox(
-                                                          height: 5.h,
-                                                        ),
-                                                        SizedBox(
-                                                          width: 325 * 0.6,
+                                                          width: 146,
                                                           child: FittedBox(
-                                                            // aoutomatically fits the text in the particular container
+                                                            fit: BoxFit.fill,
                                                             child: Text(
-                                                              products[index]
-                                                                  .title,
+                                                              products[index].name,
                                                               style: appstyle(
                                                                   16,
-                                                                  Colors.grey
-                                                                      .shade700,
-                                                                  FontWeight
-                                                                      .bold),
+                                                                  Colors.black,
+                                                                  FontWeight.bold),
                                                             ),
                                                           ),
                                                         ),
-                                                        SizedBox(
-                                                          height: 5.h,
+                                                        const SizedBox(
+                                                          height: 5,
                                                         ),
-                                                        Text(
-                                                          "\u{20B9} ${pay_price["${products[index].id}"].toString()}",
-                                                          style: appstyle(
-                                                              12,
-                                                              Colors.grey
-                                                                  .shade600,
-                                                              FontWeight.bold),
+                                                        // SizedBox(
+                                                        //   width: 235 * 0.6,
+                                                        //   child: FittedBox(
+                                                        //       // aoutomatically fits the text in the particular container
+                                                        //       child: Text(
+                                                        //         products[index]
+                                                        //             .category,
+                                                        //         style: appstyle(
+                                                        //             16,
+                                                        //             Colors.grey
+                                                        //                 .shade700,
+                                                        //             FontWeight
+                                                        //                 .bold),
+                                                        //       ),
+                                                        //     ),
+                                                        // ),
+                                                        // const SizedBox(
+                                                        //   height: 5,
+                                                        // ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            Text(
+                                                              "\u{20B9}${pay_price[products[index].id].toString()}",
+                                                              style: appstyle(
+                                                                  18,
+                                                                  Colors.grey
+                                                                      .shade600,
+                                                                  FontWeight
+                                                                      .bold),
+                                                            ),
+                                                          ],
                                                         ),
                                                       ],
                                                     ),
@@ -240,14 +263,17 @@ class _myOrdersState extends State<myOrders> {
                                                               const EdgeInsets
                                                                   .symmetric(
                                                                   horizontal:
-                                                                      25),
-                                                          decoration: const BoxDecoration(
-                                                              color:
-                                                                  Colors.black,
-                                                              borderRadius: BorderRadius
-                                                                  .all(Radius
-                                                                      .circular(
-                                                                          12))),
+                                                                      20),
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            color: Colors.black,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(
+                                                              Radius.circular(
+                                                                  12),
+                                                            ),
+                                                          ),
                                                           child: Text(
                                                             "PAID",
                                                             style: appstyle(
@@ -266,13 +292,17 @@ class _myOrdersState extends State<myOrders> {
                                                                   .symmetric(
                                                                   horizontal: 5,
                                                                   vertical: 5),
-                                                          decoration: const BoxDecoration(
-                                                              color: Colors
-                                                                  .black12,
-                                                              borderRadius: BorderRadius
-                                                                  .all(Radius
-                                                                      .circular(
-                                                                          12))),
+                                                          decoration:
+                                                              const BoxDecoration(
+                                                            color:
+                                                                Colors.black12,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(
+                                                              Radius.circular(
+                                                                  12),
+                                                            ),
+                                                          ),
                                                           child: Row(
                                                             children: [
                                                               const Icon(
@@ -282,12 +312,13 @@ class _myOrdersState extends State<myOrders> {
                                                                     .black,
                                                                 size: 14,
                                                               ),
-                                                              SizedBox(
-                                                                width: 10.w,
+                                                              const SizedBox(
+                                                                width: 5,
                                                               ),
                                                               Text(
-                                                                delivery[
-                                                                        "${products[index].id}"]
+                                                                delivery[products[
+                                                                            index]
+                                                                        .id]
                                                                     .toString(),
                                                                 style: appstyle(
                                                                     10,

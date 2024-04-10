@@ -1,4 +1,4 @@
-// ignore_for_file: camel_case_types, body_might_complete_normally_nullable, use_build_context_synchronously
+// ignore_for_file: camel_case_types, , use_build_context_synchronously
 
 import 'package:shoe_ecommerce_app/controllers/password_notify.dart';
 import 'package:shoe_ecommerce_app/home.dart';
@@ -68,6 +68,7 @@ class _loginPageState extends State<loginPage> {
                   // checking the input user
                   return 'Please provide valid email';
                 }
+                return null;
               },
               prefixIcon: const Icon(
                 Icons.email,
@@ -96,6 +97,7 @@ class _loginPageState extends State<loginPage> {
                   // checking the input user
                   return 'Password too weak';
                 }
+                return null;
               },
               prefixIcon: const Icon(
                 Icons.lock,

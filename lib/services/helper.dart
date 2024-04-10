@@ -50,12 +50,35 @@ class helper {
     return sneaker;
   }
 
+   // Single Female
+  Future<Sneakers> getFemaleSneakersById(String id) async {
+    final data =
+        await the_bundle.rootBundle.loadString("json/women_shoes.json");
+
+    final maleList = sneakersFromJson(data);
+
+    final sneaker = maleList.firstWhere((sneaker) => sneaker.id == id);
+
+    return sneaker;
+  }
+
+  // Single Kids
+  Future<Sneakers> getKidsSneakersById(String id) async {
+    final data = await the_bundle.rootBundle.loadString("json/kids_shoes.json");
+
+    final maleList = sneakersFromJson(data);
+
+    final sneaker = maleList.firstWhere((sneaker) => sneaker.id == id);
+
+    return sneaker;
+  }
+
 // getting fav list
   Future<List<Sneakers>> getListMaleSneakersById(
       List<String> id, List<String> categrory, List<String> fav) async {
-    final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
+    final data1 = await the_bundle.rootBundle.loadString("json/men_shoes.json");
 
-    final maleList = sneakersFromJson(data);
+    final maleList = sneakersFromJson(data1);
 
     final data2 =
         await the_bundle.rootBundle.loadString("json/women_shoes.json");
@@ -72,17 +95,17 @@ class helper {
     int index = 0;
 
     for (var element in id) {
-      if (categrory[index] == "Men's Running" && fav[index] == 'true') {
+      if (categrory[index] == "Men's Sneakers" && fav[index] == 'true') {
         final temp = maleList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
         // add male fav shoes
-      } else if (categrory[index] == "Women's Running" &&
+      } else if (categrory[index] == "Women's Sneakers" &&
           fav[index] == 'true') {
         final temp = femaleList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
 
         // add female shoes
-      } else if (categrory[index] == "Kids' Running" && fav[index] == 'true') {
+      } else if (categrory[index] == "Kid's Sneakers" && fav[index] == 'true') {
         final temp = kidsList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
       } else {}
@@ -94,9 +117,9 @@ class helper {
 
   Future<List<Sneakers>> getorderedSneakersById(
       List<String> id, List<String> categrory) async {
-    final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
+    final data1 = await the_bundle.rootBundle.loadString("json/men_shoes.json");
 
-    final maleList = sneakersFromJson(data);
+    final maleList = sneakersFromJson(data1);
 
     final data2 =
         await the_bundle.rootBundle.loadString("json/women_shoes.json");
@@ -113,16 +136,16 @@ class helper {
     int index = 0;
 
     for (var element in id) {
-      if (categrory[index] == "Men's Running") {
+      if (categrory[index] == "Men's Sneakers") {
         final temp = maleList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
         // add male fav shoes
-      } else if (categrory[index] == "Women's Running") {
+      } else if (categrory[index] == "Women's Sneakers") {
         final temp = femaleList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
 
         // add female shoes
-      } else if (categrory[index] == "Kids' Running") {
+      } else if (categrory[index] == "Kid's Sneakers") {
         final temp = kidsList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
       } else {}
@@ -134,9 +157,9 @@ class helper {
 
   Future<List<Sneakers>> getuserSearchedShoes(String shoe_name) async {
     List<Sneakers> searchedShoe = [];
-    final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
+    final data1 = await the_bundle.rootBundle.loadString("json/men_shoes.json");
 
-    final maleList = sneakersFromJson(data);
+    final maleList = sneakersFromJson(data1);
 
     final data2 =
         await the_bundle.rootBundle.loadString("json/women_shoes.json");
@@ -171,9 +194,9 @@ class helper {
 
   Future<List<Sneakers>> getListCARTSneakersById(
       List<String> id, List<String> categrory, List<String> fav) async {
-    final data = await the_bundle.rootBundle.loadString("json/men_shoes.json");
+    final data1 = await the_bundle.rootBundle.loadString("json/men_shoes.json");
 
-    final maleList = sneakersFromJson(data);
+    final maleList = sneakersFromJson(data1);
 
     final data2 =
         await the_bundle.rootBundle.loadString("json/women_shoes.json");
@@ -190,17 +213,17 @@ class helper {
     int index = 0;
 
     for (var element in id) {
-      if (categrory[index] == "Men's Running" && fav[index] == 'true') {
+      if (categrory[index] == "Men's Sneakers" && fav[index] == 'true') {
         final temp = maleList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
         // add male fav shoes
-      } else if (categrory[index] == "Women's Running" &&
+      } else if (categrory[index] == "Women's Sneakers" &&
           fav[index] == 'true') {
         final temp = femaleList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
 
         // add female shoes
-      } else if (categrory[index] == "Kids' Running" && fav[index] == 'true') {
+      } else if (categrory[index] == "Kid's Sneakers" && fav[index] == 'true') {
         final temp = kidsList.firstWhere((sneaker) => sneaker.id == element);
         sneaker.add(temp);
       } else {}
@@ -210,26 +233,4 @@ class helper {
     return sneaker;
   }
 
-  // Single Male
-  Future<Sneakers> getFemaleSneakersById(String id) async {
-    final data =
-        await the_bundle.rootBundle.loadString("json/women_shoes.json");
-
-    final maleList = sneakersFromJson(data);
-
-    final sneaker = maleList.firstWhere((sneaker) => sneaker.id == id);
-
-    return sneaker;
-  }
-
-  // Single Kids
-  Future<Sneakers> getKidsSneakersById(String id) async {
-    final data = await the_bundle.rootBundle.loadString("json/kids_shoes.json");
-
-    final maleList = sneakersFromJson(data);
-
-    final sneaker = maleList.firstWhere((sneaker) => sneaker.id == id);
-
-    return sneaker;
-  }
 }

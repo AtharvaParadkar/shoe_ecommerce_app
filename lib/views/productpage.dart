@@ -38,9 +38,9 @@ class _productPageState extends State<productPage> {
 
   late Future<Sneakers> _sneakers;
   void getshoes() {
-    if (widget.category == "Men's Running") {
+    if (widget.category == "Men's Sneakers") {
       _sneakers = helper().getMaleSneakersById(widget.id);
-    } else if (widget.category == "Women's Running") {
+    } else if (widget.category == "Women's Sneakers") {
       _sneakers = helper().getFemaleSneakersById(widget.id);
     } else {
       _sneakers = helper().getKidsSneakersById(widget.id);
@@ -55,21 +55,23 @@ class _productPageState extends State<productPage> {
         .doc(mail)
         .collection("shoes")
         .get()
-        .then((value) {
-      for (var element in value.docs) {
-        Map test = element.data();
-        if (test["fav"] == "true") {
-          fav.add(test["id"]);
-          if (test["id"] == widget.id) {
-            if (test["cart"] == "true") {
-              isCarted = true;
+        .then(
+      (value) {
+        for (var element in value.docs) {
+          Map test = element.data();
+          if (test["fav"] == "true") {
+            fav.add(test["id"]);
+            if (test["id"] == widget.id) {
+              if (test["cart"] == "true") {
+                isCarted = true;
+              }
             }
           }
         }
-      }
-      isLoading = false;
-      setState(() {});
-    });
+        isLoading = false;
+        setState(() {});
+      },
+    );
   }
 
   Future<void> getDetails() async {
@@ -86,30 +88,34 @@ class _productPageState extends State<productPage> {
   @override
   Widget build(BuildContext context) {
     print("$isCarted");
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Colors.grey.shade300,
-        systemNavigationBarColor: Colors.white // status bar color
-        ));
-
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+          statusBarColor: Colors.grey.shade300,
+          systemNavigationBarColor: Colors.white // status bar color
+          ),
+    );
     return FutureBuilder<Sneakers>(
-        future: _sneakers,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const CircularProgressIndicator();
-          } else if (snapshot.hasError) {
-            print(" Error ${snapshot.error}");
-            return Text(" Error ${snapshot.error}");
-          } else {
-            final userShoe = snapshot.data;
-            return isLoading
-                ? SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    child: const Center(
-                        child: CircularProgressIndicator(
+      future: _sneakers,
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const CircularProgressIndicator();
+        } else if (snapshot.hasError) {
+          print(" Error ${snapshot.error}");
+          return Text(" Error ${snapshot.error}");
+        } else {
+          final userShoe = snapshot.data;
+          return isLoading
+              ? SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: const Center(
+                    child: CircularProgressIndicator(
                       color: Colors.black,
-                    )))
-                : SafeArea(
-                    child: Scaffold(body: Consumer<ProductNotifiers>(
+                    ),
+                  ),
+                )
+              : SafeArea(
+                  child: Scaffold(
+                    body: Consumer<ProductNotifiers>(
                       builder: (context, productNotifiers, child) {
                         productNotifiers.valSet(isCarted, widget.shoesize);
                         productNotifiers.lFav(fav.contains(widget.id));
@@ -135,13 +141,13 @@ class _productPageState extends State<productPage> {
                                         color: Colors.black,
                                       ),
                                     ),
-                                    GestureDetector(
-                                      onTap: null,
-                                      child: const Icon(
-                                        Icons.more_horiz,
-                                        color: Colors.black,
-                                      ),
-                                    )
+                                    // GestureDetector(
+                                    //   onTap: null,
+                                    //   child: const Icon(
+                                    //     Icons.more_horiz,
+                                    //     color: Colors.black,
+                                    //   ),
+                                    // )
                                   ],
                                 ),
                               ),
@@ -158,159 +164,150 @@ class _productPageState extends State<productPage> {
                                       height: MediaQuery.of(context)
                                               .size
                                               .height *
-                                          0.8, // it means 50 porcent of the height of the phone
+                                          0.8, //* it means 50 porcent of the height of the phone
                                       width: MediaQuery.of(context).size.width,
                                       child: PageView.builder(
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: userShoe!.imageUrl.length,
-                                          controller: _pageController,
-                                          onPageChanged: (page) {
-                                            // thats why we use PrdouctNotifier statemangement
-                                            productNotifiers.activepage = page;
-                                          },
-                                          itemBuilder: (context, int index) {
-                                            return Stack(
-                                              children: [
-                                                Container(
-                                                  height: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.39,
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  color: Colors.grey.shade300,
-                                                  child: CachedNetworkImage(
-                                                    imageUrl: userShoe
-                                                        .imageUrl[index],
-                                                    fit: BoxFit.contain,
-                                                  ),
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount: userShoe!.imageUrl.length,
+                                        controller: _pageController,
+                                        onPageChanged: (page) {
+                                          // thats why we use PrdouctNotifier statemangement
+                                          productNotifiers.activepage = page;
+                                        },
+                                        itemBuilder: (context, int index) {
+                                          return Stack(
+                                            children: [
+                                              Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.39,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                color: Colors.grey.shade300,
+                                                child: CachedNetworkImage(
+                                                  imageUrl:
+                                                      userShoe.imageUrl[index],
+                                                  fit: BoxFit.contain,
                                                 ),
-                                                Positioned(
-                                                  top: MediaQuery.of(context)
-                                                          .size
-                                                          .height *
-                                                      0.05,
-                                                  right: 16,
-                                                  child: GestureDetector(
-                                                    onTap: () async {
-                                                      List<String> id = [];
-                                                  
+                                              ),
+                                              Positioned(
+                                                top: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.02,
+                                                right: 16,
+                                                child: GestureDetector(
+                                                  onTap: () async {
+                                                    List<String> id = [];
+                                                    await FirebaseFirestore
+                                                        .instance
+                                                        .collection("users")
+                                                        .doc(user.email)
+                                                        .collection("shoes")
+                                                        .get()
+                                                        .then(
+                                                      (value) {
+                                                        for (var element
+                                                            in value.docs) {
+                                                          Map test =
+                                                              element.data();
+                                                          id.add(test["id"]);
+                                                        }
+                                                      },
+                                                    );
+                                                    if (id
+                                                        .contains(widget.id)) {
                                                       await FirebaseFirestore
                                                           .instance
                                                           .collection("users")
                                                           .doc(user.email)
                                                           .collection("shoes")
-                                                          .get()
-                                                          .then((value) {
-                                                        for (var element in value.docs) {
-                                                          Map test =
-                                                              element.data();
-                                                          id.add(test["id"]);
-                                                        }
-                                                      });
-                                                      if (id.contains(
-                                                          widget.id)) {
-                                                        await FirebaseFirestore
-                                                            .instance
-                                                            .collection(
-                                                                "users")
-                                                            .doc(user.email)
-                                                            .collection(
-                                                                "shoes")
-                                                            .doc(widget.id)
-                                                            .update({
+                                                          .doc(widget.id)
+                                                          .update(
+                                                        {
                                                           "fav":
                                                               "${!productNotifiers.isFav}",
-                                                        });
-                                                      } else {
-                                                        await FirebaseFirestore
-                                                            .instance
-                                                            .collection(
-                                                                "users")
-                                                            .doc(user.email)
-                                                            .collection(
-                                                                "shoes")
-                                                            .doc(widget.id)
-                                                            .set({
+                                                        },
+                                                      );
+                                                    } else {
+                                                      await FirebaseFirestore
+                                                          .instance
+                                                          .collection("users")
+                                                          .doc(user.email)
+                                                          .collection("shoes")
+                                                          .doc(widget.id)
+                                                          .set(
+                                                        {
                                                           "id": widget.id,
                                                           "fav": "true",
-                                                          "gend":
-                                                              widget.category,
+                                                          "gend": widget.category,
                                                           "cart": "false",
-                                                        });
-                                                      }
-                                                  
-                                                      productNotifiers
-                                                          .favChang(
-                                                              !productNotifiers
-                                                                  .isFav);
-                                                  
-                                                      productNotifiers.lFav(
-                                                          !productNotifiers
-                                                              .isFav);
-                                                  
-                                                      if (fav.contains(
-                                                          widget.id)) {
-                                                        fav.remove(widget.id);
-                                                      } else {
-                                                        fav.add(widget.id);
-                                                      }
-                                                    },
-                                                    child: productNotifiers
-                                                            .isFav
-                                                        ? const Icon(
-                                                            Icons.favorite,
-                                                            color:
-                                                                Colors.black,
-                                                          )
-                                                        : const Icon(
-                                                            Icons
-                                                                .favorite_border_sharp,
-                                                            color:
-                                                                Colors.grey,
-                                                          ),
+                                                        },
+                                                      );
+                                                    }
+                                                    productNotifiers.favChang(
+                                                        !productNotifiers
+                                                            .isFav);
+                                                    productNotifiers.lFav(
+                                                        !productNotifiers
+                                                            .isFav);
+                                                    if (fav
+                                                        .contains(widget.id)) {
+                                                      fav.remove(widget.id);
+                                                    } else {
+                                                      fav.add(widget.id);
+                                                    }
+                                                  },
+                                                  child: productNotifiers.isFav
+                                                      ? const Icon(
+                                                          Icons.favorite,
+                                                          color: Colors.black,
+                                                        )
+                                                      : const Icon(
+                                                          Icons
+                                                              .favorite_border_sharp,
+                                                          color: Colors.grey,
+                                                        ),
+                                                ),
+                                              ),
+                                              Positioned(
+                                                top: 140,
+                                                right:
+                                                    0, // to get at the center it right and left should be zero
+                                                left: 0,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    0.3,
+                                                child: Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children:
+                                                      List<Widget>.generate(
+                                                    userShoe.imageUrl.length,
+                                                    (index) => Padding(
+                                                      padding: const EdgeInsets
+                                                          .symmetric(
+                                                          horizontal: 4),
+                                                      child: CircleAvatar(
+                                                        radius: 5,
+                                                        backgroundColor:
+                                                            productNotifiers
+                                                                        .activepage !=
+                                                                    index
+                                                                ? Colors.grey
+                                                                : Colors.black,
+                                                      ),
+                                                    ),
                                                   ),
                                                 ),
-                                                Positioned(
-                                                    top: 140,
-                                                    right:
-                                                        0, // to get at the center it right and left should be zero
-                                                    left: 0,
-                                                    height:
-                                                        MediaQuery.of(context)
-                                                                .size
-                                                                .height *
-                                                            0.3,
-                                                    child: Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children:
-                                                          List<Widget>.generate(
-                                                              userShoe.imageUrl
-                                                                  .length,
-                                                              (index) =>
-                                                                  Padding(
-                                                                    padding: const EdgeInsets
-                                                                        .symmetric(
-                                                                        horizontal:
-                                                                            4),
-                                                                    child:
-                                                                        CircleAvatar(
-                                                                      radius: 5,
-                                                                      backgroundColor: productNotifiers.activepage !=
-                                                                              index
-                                                                          ? Colors
-                                                                              .grey
-                                                                          : Colors
-                                                                              .black,
-                                                                    ),
-                                                                  )),
-                                                    )),
-                                              ],
-                                            );
-                                          }),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
                                     ),
                                     Positioned(
                                         bottom: -70,
@@ -399,34 +396,34 @@ class _productPageState extends State<productPage> {
                                                             Colors.black,
                                                             FontWeight.w600),
                                                       ),
-                                                      Row(
-                                                        children: [
-                                                          Text(
-                                                            "Colors",
-                                                            style: appstyle(
-                                                                16,
-                                                                Colors.black,
-                                                                FontWeight
-                                                                    .w500),
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          const CircleAvatar(
-                                                            radius: 7,
-                                                            backgroundColor:
-                                                                Colors.black,
-                                                          ),
-                                                          const SizedBox(
-                                                            width: 5,
-                                                          ),
-                                                          const CircleAvatar(
-                                                            radius: 7,
-                                                            backgroundColor:
-                                                                Colors.red,
-                                                          )
-                                                        ],
-                                                      ),
+                                                      // Row(
+                                                      //   children: [
+                                                      //     Text(
+                                                      //       "Colors",
+                                                      //       style: appstyle(
+                                                      //           16,
+                                                      //           Colors.black,
+                                                      //           FontWeight
+                                                      //               .w500),
+                                                      //     ),
+                                                      //     const SizedBox(
+                                                      //       width: 5,
+                                                      //     ),
+                                                      //     const CircleAvatar(
+                                                      //       radius: 7,
+                                                      //       backgroundColor:
+                                                      //           Colors.black,
+                                                      //     ),
+                                                      //     const SizedBox(
+                                                      //       width: 5,
+                                                      //     ),
+                                                      //     const CircleAvatar(
+                                                      //       radius: 7,
+                                                      //       backgroundColor:
+                                                      //           Colors.red,
+                                                      //     )
+                                                      //   ],
+                                                      // ),
                                                     ],
                                                   ),
                                                   const SizedBox(
@@ -447,14 +444,14 @@ class _productPageState extends State<productPage> {
                                                           const SizedBox(
                                                             width: 20,
                                                           ),
-                                                          Text(
-                                                            "View size guide",
-                                                            style: appstyle(
-                                                                20,
-                                                                Colors.grey,
-                                                                FontWeight
-                                                                    .w600),
-                                                          )
+                                                          // Text(
+                                                          //   "View size guide",
+                                                          //   style: appstyle(
+                                                          //       20,
+                                                          //       Colors.grey,
+                                                          //       FontWeight
+                                                          //           .w600),
+                                                          // )
                                                         ],
                                                       ),
                                                       const SizedBox(
@@ -463,81 +460,88 @@ class _productPageState extends State<productPage> {
                                                       SizedBox(
                                                         height: 40,
                                                         child: ListView.builder(
-                                                            itemCount:
+                                                          itemCount:
+                                                              productNotifiers
+                                                                  .shoeSizes
+                                                                  .length,
+                                                          scrollDirection:
+                                                              Axis.horizontal,
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          itemBuilder:
+                                                              (context, index) {
+                                                            final shoessize =
                                                                 productNotifiers
-                                                                    .shoeSizes
-                                                                    .length,
-                                                            scrollDirection:
-                                                                Axis.horizontal,
-                                                            padding:
-                                                                EdgeInsets.zero,
-                                                            itemBuilder:
-                                                                (context,
-                                                                    index) {
-                                                              final shoessize =
-                                                                  productNotifiers
-                                                                      .shoeSizes;
-                                                              return Container(
-                                                                padding: const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                        8),
-                                                                child: Center(
-                                                                  child:
-                                                                      ChoiceChip(
-                                                                    padding: const EdgeInsets
-                                                                        .only(
-                                                                        top: 6,
-                                                                        bottom:
-                                                                            18),
-                                                                    shape:
-                                                                        const RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.all(
-                                                                              Radius.circular(2000)),
-                                                                    ),
-                                                                    disabledColor:
-                                                                        Colors
-                                                                            .white,
-                                                                    side: BorderSide(
-                                                                        color: shoessize[index]["isSelected"]
-                                                                            ? Colors
-                                                                                .black
-                                                                            : Colors
-                                                                                .grey,
-                                                                        width:
-                                                                            1,
-                                                                        style: BorderStyle
-                                                                            .solid),
-                                                                    label: Text(
-                                                                      shoessize[
-                                                                              index]
-                                                                          [
-                                                                          "size"],
-                                                                      style: appstyle(
-                                                                          18,
-                                                                          shoessize[index]["isSelected"]
-                                                                              ? Colors.white
-                                                                              : Colors.black,
-                                                                          FontWeight.w600),
-                                                                    ),
-                                                                    selectedColor:
-                                                                        Colors
-                                                                            .black,
-                                                                    selected: shoessize[
+                                                                    .shoeSizes;
+                                                            return Container(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .symmetric(
+                                                                      horizontal:
+                                                                          8),
+                                                              child: Center(
+                                                                child:
+                                                                    ChoiceChip(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                          top:
+                                                                              6,
+                                                                          bottom:
+                                                                              18),
+                                                                  shape:
+                                                                      const RoundedRectangleBorder(
+                                                                    borderRadius:
+                                                                        BorderRadius.all(
+                                                                            Radius.circular(2000)),
+                                                                  ),
+                                                                  disabledColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  side: BorderSide(
+                                                                      color: shoessize[index]
+                                                                              [
+                                                                              "isSelected"]
+                                                                          ? Colors
+                                                                              .black
+                                                                          : Colors
+                                                                              .grey,
+                                                                      width: 1,
+                                                                      style: BorderStyle
+                                                                          .solid),
+                                                                  label: Text(
+                                                                    shoessize[
                                                                             index]
                                                                         [
-                                                                        "isSelected"],
-                                                                    onSelected:
-                                                                        (newsState) {
-                                                                      productNotifiers
-                                                                          .toggleChecked(
-                                                                              index);
-                                                                    },
+                                                                        "size"],
+                                                                    style: appstyle(
+                                                                        18,
+                                                                        shoessize[index]["isSelected"]
+                                                                            ? Colors
+                                                                                .white
+                                                                            : Colors
+                                                                                .black,
+                                                                        FontWeight
+                                                                            .w600),
                                                                   ),
+                                                                  selectedColor:
+                                                                      Colors
+                                                                          .black,
+                                                                  selected: shoessize[
+                                                                          index]
+                                                                      [
+                                                                      "isSelected"],
+                                                                  onSelected:
+                                                                      (newsState) {
+                                                                    productNotifiers
+                                                                        .toggleChecked(
+                                                                            index);
+                                                                  },
                                                                 ),
-                                                              );
-                                                            }),
+                                                              ),
+                                                            );
+                                                          },
+                                                        ),
                                                       ),
                                                       const SizedBox(
                                                         height: 3,
@@ -612,7 +616,8 @@ class _productPageState extends State<productPage> {
                                                   .collection("shoes")
                                                   .get()
                                                   .then((value) {
-                                                for (var element in value.docs) {
+                                                for (var element
+                                                    in value.docs) {
                                                   Map test = element.data();
                                                   id.add(test["id"]);
                                                 }
@@ -623,35 +628,39 @@ class _productPageState extends State<productPage> {
                                                     .doc(user.email)
                                                     .collection("shoes")
                                                     .doc(widget.id)
-                                                    .update({
-                                                  "cart": "true",
-                                                  "quantity": "1",
-                                                  "sizes": productNotifiers
-                                                          .sizeChecked()
-                                                          .isEmpty
-                                                      ? "Not Selected"
-                                                      : productNotifiers
-                                                          .sizeChecked()
-                                                });
+                                                    .update(
+                                                  {
+                                                    "cart": "true",
+                                                    "quantity": "1",
+                                                    "sizes": productNotifiers
+                                                            .sizeChecked()
+                                                            .isEmpty
+                                                        ? "Not Selected"
+                                                        : productNotifiers
+                                                            .sizeChecked()
+                                                  },
+                                                );
                                               } else {
                                                 await FirebaseFirestore.instance
                                                     .collection("users")
                                                     .doc(user.email)
                                                     .collection("shoes")
                                                     .doc(widget.id)
-                                                    .set({
-                                                  "id": widget.id,
-                                                  "fav": "false",
-                                                  "gend": widget.category,
-                                                  "cart": "true",
-                                                  "quantity": "1",
-                                                  "sizes": productNotifiers
-                                                          .sizeChecked()
-                                                          .isEmpty
-                                                      ? "Not Selected"
-                                                      : productNotifiers
-                                                          .sizeChecked()
-                                                });
+                                                    .set(
+                                                  {
+                                                    "id": widget.id,
+                                                    "fav": "false",
+                                                    "gend": widget.category,
+                                                    "cart": "true",
+                                                    "quantity": "1",
+                                                    "sizes": productNotifiers
+                                                            .sizeChecked()
+                                                            .isEmpty
+                                                        ? "Not Selected"
+                                                        : productNotifiers
+                                                            .sizeChecked()
+                                                  },
+                                                );
                                               }
                                               pressed = true;
                                               setState(() {});
@@ -662,14 +671,15 @@ class _productPageState extends State<productPage> {
                                                   .size
                                                   .width,
                                               decoration: BoxDecoration(
-                                                  color: Colors.black,
-                                                  border: Border.all(
-                                                      width: 1,
-                                                      color: Colors.white,
-                                                      style: BorderStyle.solid),
-                                                  borderRadius:
-                                                      const BorderRadius.all(
-                                                          Radius.circular(9))),
+                                                color: Colors.black,
+                                                border: Border.all(
+                                                    width: 1,
+                                                    color: Colors.white,
+                                                    style: BorderStyle.solid),
+                                                borderRadius:
+                                                    const BorderRadius.all(
+                                                        Radius.circular(9)),
+                                              ),
                                               child: Center(
                                                 child: Text(
                                                   pressed
@@ -691,9 +701,11 @@ class _productPageState extends State<productPage> {
                           ],
                         );
                       },
-                    )),
-                  );
-          }
-        });
+                    ),
+                  ),
+                );
+        }
+      },
+    );
   }
 }

@@ -5,7 +5,7 @@ import 'package:shoe_ecommerce_app/views/shared/appstyle.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
+// ignore:, must_be_immutable 
 class productCard extends StatefulWidget {
   productCard(
       {super.key,
@@ -105,7 +105,6 @@ class _productCardState extends State<productCard> {
                               "cart": "false",
                             });
                           }
-
                           setState(() {});
                         },
                         child: !widget.isfav
@@ -141,30 +140,31 @@ class _productCardState extends State<productCard> {
                   right: 8,
                 ),
                 child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        widget.price,
-                        style: appstyle(30, Colors.black, FontWeight.w600),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            "Colors",
-                            style: appstyle(18, Colors.grey, FontWeight.w500),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          ChoiceChip(
-                            label: const Text(" "),
-                            selected: selected,
-                            visualDensity: VisualDensity.compact,
-                            selectedColor: Colors.black,
-                          )
-                        ],
-                      )
-                    ]),
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      widget.price,
+                      style: appstyle(30, Colors.black, FontWeight.w500),
+                    ),
+                    // Row(
+                    //   children: [
+                    //     Text(
+                    //       "Colors",
+                    //       style: appstyle(18, Colors.grey, FontWeight.w500),
+                    //     ),
+                    //     const SizedBox(
+                    //       width: 5,
+                    //     ),
+                    //     ChoiceChip(
+                    //       label: const Text(""),
+                    //       selected: selected,
+                    //       visualDensity: VisualDensity.compact,
+                    //       selectedColor: Colors.black,
+                    //     )
+                    //   ],
+                    // )
+                  ],
+                ),
               )
             ],
           ),

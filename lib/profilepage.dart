@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_vector_icons/flutter_vector_icons.dart';
+import 'package:shoe_ecommerce_app/shippingaddress.dart';
 
 class profilePage extends StatefulWidget {
   const profilePage({super.key});
@@ -130,13 +131,8 @@ class _profilePageState extends State<profilePage> {
                           SizedBox(
                             height: 35.h,
                             width: 35.w,
-                            child: CircleAvatar(
-                              backgroundImage: const AssetImage(
-                                "images/user.jpeg",
-                              ),
-                      
-                              backgroundColor:
-                                  Colors.grey.shade300, // user profile
+                            child: const Icon(
+                              Feather.user,
                             ),
                           ),
                           const SizedBox(
@@ -166,12 +162,13 @@ class _profilePageState extends State<profilePage> {
                         ],
                       ),
                       GestureDetector(
-                          onTap: () {},
-                          child: const Icon(
-                            Feather.edit,
-                            color: Colors.black,
-                            size: 18,
-                          )),
+                        onTap: () {},
+                        child: Image.asset(
+                          "images/india.png",
+                          width: 15,
+                          height: 20,
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -199,51 +196,55 @@ class _profilePageState extends State<profilePage> {
                         TilesWidget(
                             OnTap: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const Favourates(
-                                            cross: true,
-                                          )));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Favourates(
+                                    cross: true,
+                                  ),
+                                ),
+                              );
                             },
                             title: "My Favourates",
                             leading: MaterialCommunityIcons.heart_outline),
                         TilesWidget(
                             OnTap: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => cartPage(
-                                            value: 1,
-                                          )));
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => cartPage(
+                                    value: 1,
+                                  ),
+                                ),
+                              );
                             },
                             title: "Cart",
                             leading: Fontisto.shopping_bag_1)
                       ],
                     ),
                   ),
-                  SizedBox(
-                    height: 7.h,
+                  const SizedBox(
+                    height: 7,
                   ),
-                  Container(
-                    height: 120.h,
-                    color: Colors.white,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TilesWidget(
-                            OnTap: () {},
-                            title: "Coupons",
-                            leading: MaterialCommunityIcons.tag_outline),
-                        TilesWidget(
-                            OnTap: () {},
-                            title: "My Store",
-                            leading: MaterialCommunityIcons.shopping_outline),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    height: 7.h,
-                  ),
+                  // Container(
+                  //   height: 120.h,
+                  //   color: Colors.white,
+                  //   child: Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: [
+                  //       TilesWidget(
+                  //           OnTap: () {},
+                  //           title: "Coupons",
+                  //           leading: MaterialCommunityIcons.tag_outline),
+                  //       TilesWidget(
+                  //           OnTap: () {},
+                  //           title: "My Store",
+                  //           leading: MaterialCommunityIcons.shopping_outline),
+                  //     ],
+                  //   ),
+                  // ),
+                  // const SizedBox(
+                  //   height: 7,
+                  // ),
                   Container(
                     height: 170.h,
                     color: Colors.white,
@@ -251,7 +252,14 @@ class _profilePageState extends State<profilePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         TilesWidget(
-                            OnTap: () {},
+                            OnTap: () {
+                              Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ShippingAddressPage(),
+                            ),
+                          );
+                            },
                             title: "Shipping Address",
                             leading: SimpleLineIcons.location_pin),
                         TilesWidget(
@@ -262,9 +270,10 @@ class _profilePageState extends State<profilePage> {
                             OnTap: () async {
                               await FirebaseAuth.instance.signOut();
                               Navigator.pushReplacement(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const loginPage()));
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const loginPage()),
+                              );
                             },
                             title: "Logout",
                             leading: AntDesign.logout),
